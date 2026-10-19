@@ -153,9 +153,9 @@ double cosine_between_vectors(const ROOT::RVec<double>& v1, const ROOT::RVec<dou
 // ==========================================
 // 5. Cut on m1 vs m2 plane
 // ==========================================
-bool m1_vs_m2_cut(const double& m1, const double& m2, const double& mPi0, const double& cut1, const double& cut2) {
-    double u = ((m1 - mPi0) + (m2 - mPi0)) / std::sqrt(2.0);
-    double v = ((m1 - mPi0) - (m2 - mPi0)) / std::sqrt(2.0);
+bool m1_vs_m2_cut(const double& m1, const double& m2, const double& cut1, const double& cut2) {
+    double u = (m1 + m2) / std::sqrt(2.0);
+    double v = (m1 - m2) / std::sqrt(2.0);
 
     return std::abs(u) < cut1 && std::abs(v) < cut2;
 }
