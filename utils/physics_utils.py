@@ -159,6 +159,41 @@ bool m1_vs_m2_cut(const double& m1, const double& m2, const double& cut1, const 
 
     return std::abs(u) < cut1 && std::abs(v) < cut2;
 }
+
+// ==========================================
+// 6. Pair the track momenta
+// ==========================================
+#include <vector>
+#include <cmath>
+
+std::vector<ROOT::RVec<double>> get_matched_vector(const ROOT::RVec<double>& trk1, const ROOT::RVec<double>& trk2, const ROOT::RVec<double>& trk1MC, const ROOT::RVec<double>& trk2MC) 
+{    
+    if (trk1.size() >= 2 && trk1MC.size() >= 2) {
+        
+        // Lambda licząca kwadrat odległości 3D
+        auto dist3d_sq = [](const ROOT::RVec<double>& v1, const ROOT::RVec<double>& v2) {
+            double dx = v1[0] - v2[0];
+            double dy = v1[1] - v2[1];
+            double dz = v1[2] - v2[2];
+            return dx * dx + dy * dy + dz * dz;
+        };
+
+        // Koszt dla wariantu prostego (reco0->mc0, reco1->mc1)
+        double cost_straight = dist3d_sq(trk1, trk1MC) + 
+                               dist3d_sq(trk2, trk2MC);
+                               
+        // Koszt dla wariantu skrzyżowanego (reco0->mc1, reco1->mc0)
+        double cost_swapped  = dist3d_sq(trk1, trk2MC) + 
+                               dist3d_sq(trk2, trk1MC);
+
+        // Jeśli wariant skrzyżowany jest lepszy, zamieniamy elementy miejscami
+        if (cost_swapped < cost_straight) {
+          return {trk2, trk1};
+        }
+    }
+    
+    return {trk1, trk2};
+}
 """)
 
 
