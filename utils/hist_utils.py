@@ -33,22 +33,30 @@ def split_variable_group(variables, titles, modes, is_truth_only):
   return take(idx_main), take(idx_truth)
 
 
-def fill_1d_histograms(df, df_data, channels, variables, titles, modes, total_cut,
-                        scaling_factor=1.0, compute_mc_sum=True):
-  """Wypełnia histogramy 1D dla podanych kanałów i (opcjonalnie) dolicza "MC sum".
+from tqdm import tqdm
+import ROOT
+import sys
 
-  channels: dict {mctruth: chann_name}, analogiczny do globalnego `channName`.
-    Kanał o nazwie "Data" jest brany z df_data, pozostałe z df. Wpis o wartości
-    "MC sum" jest ignorowany (sumę liczy ta funkcja, jeśli compute_mc_sum=True).
-    Dla zmiennych widocznych tylko dla jednego mctruth (np. prawdziwe wartości
-    z MC) wystarczy przekazać np. {1: channName[1]} i compute_mc_sum=False -
-    wtedy nie powstają ani Data, ani MC sum dla tych zmiennych.
-
-  Zwraca hist_1D: {var: {chann: {mode: hist}}}.
-  """
+def fill_1d_histograms(
+    df,
+    df_data,
+    channels,
+    variables,
+    titles,
+    modes,
+    total_cut,
+    scaling_factor=1.0,
+    compute_mc_sum=True,
+):
   hist_1D = {}
-  for i, var in enumerate(variables):
+
+  # Oplatając pętlę po zmiennych w tqdm, widzisz realny postęp!
+  for i, var in tqdm(
+      enumerate(variables), total=len(variables), desc="Przetwarzanie zmiennych", file=sys.stdout
+  ):
     hist_1D[var] = {}
+    actions_to_run = []
+
     for mctruth, chann in channels.items():
       if chann == "MC sum":
         continue
@@ -56,17 +64,19 @@ def fill_1d_histograms(df, df_data, channels, variables, titles, modes, total_cu
       hist_1D[var][chann] = {}
       df_draw = df_data if chann == "Data" else df
       title_str = f";{titles[i]};Counts"
+
       for mode in modes:
         filter_expr = f"mctruth == {mctruth} && {total_cut}"
         hist_1D[var][chann][mode] = df_draw.Filter(filter_expr).Histo1D(
             (f"{var}_{chann}_{mode}", title_str, *modes[mode][i]), var
         )
+        # Zbieramy akcje dla bieżącej zmiennej
+        actions_to_run.append(hist_1D[var][chann][mode])
 
-  ROOT.RDF.RunGraphs([
-      hist_1D[var][chann][mode]
-      for var in variables for chann in hist_1D[var] for mode in modes
-  ])
+    # Uruchamiamy RunGraphs osobno dla każdej zmiennej (dzięki czemu tqdm ma sens)
+    ROOT.RDF.RunGraphs(actions_to_run)
 
+  # Sekcja MC sum pozostaje bez zmian
   if compute_mc_sum:
     mc_channels = [c for c in channels.values() if c not in ("Data", "MC sum")]
     if mc_channels:
