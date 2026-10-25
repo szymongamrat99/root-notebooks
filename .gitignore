@@ -1,6 +1,7 @@
 *.png
 *.svg
 *.pdf
+*.root
 
 .Trash*
 .ipynb_checkpoints*
