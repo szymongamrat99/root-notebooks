@@ -33,30 +33,22 @@ def split_variable_group(variables, titles, modes, is_truth_only):
   return take(idx_main), take(idx_truth)
 
 
-from tqdm import tqdm
-import ROOT
-import sys
+def fill_1d_histograms(df, df_data, channels, variables, titles, modes, total_cut,
+                        scaling_factor=1.0, compute_mc_sum=True):
+  """Wypełnia histogramy 1D dla podanych kanałów i (opcjonalnie) dolicza "MC sum".
 
-def fill_1d_histograms(
-    df,
-    df_data,
-    channels,
-    variables,
-    titles,
-    modes,
-    total_cut,
-    scaling_factor=1.0,
-    compute_mc_sum=True,
-):
+  channels: dict {mctruth: chann_name}, analogiczny do globalnego `channName`.
+    Kanał o nazwie "Data" jest brany z df_data, pozostałe z df. Wpis o wartości
+    "MC sum" jest ignorowany (sumę liczy ta funkcja, jeśli compute_mc_sum=True).
+    Dla zmiennych widocznych tylko dla jednego mctruth (np. prawdziwe wartości
+    z MC) wystarczy przekazać np. {1: channName[1]} i compute_mc_sum=False -
+    wtedy nie powstają ani Data, ani MC sum dla tych zmiennych.
+
+  Zwraca hist_1D: {var: {chann: {mode: hist}}}.
+  """
   hist_1D = {}
-
-  # Oplatając pętlę po zmiennych w tqdm, widzisz realny postęp!
-  for i, var in tqdm(
-      enumerate(variables), total=len(variables), desc="Przetwarzanie zmiennych", file=sys.stdout
-  ):
+  for i, var in enumerate(variables):
     hist_1D[var] = {}
-    actions_to_run = []
-
     for mctruth, chann in channels.items():
       if chann == "MC sum":
         continue
@@ -64,19 +56,17 @@ def fill_1d_histograms(
       hist_1D[var][chann] = {}
       df_draw = df_data if chann == "Data" else df
       title_str = f";{titles[i]};Counts"
-
       for mode in modes:
         filter_expr = f"mctruth == {mctruth} && {total_cut}"
         hist_1D[var][chann][mode] = df_draw.Filter(filter_expr).Histo1D(
             (f"{var}_{chann}_{mode}", title_str, *modes[mode][i]), var
         )
-        # Zbieramy akcje dla bieżącej zmiennej
-        actions_to_run.append(hist_1D[var][chann][mode])
 
-    # Uruchamiamy RunGraphs osobno dla każdej zmiennej (dzięki czemu tqdm ma sens)
-    ROOT.RDF.RunGraphs(actions_to_run)
+  ROOT.RDF.RunGraphs([
+      hist_1D[var][chann][mode]
+      for var in variables for chann in hist_1D[var] for mode in modes
+  ])
 
-  # Sekcja MC sum pozostaje bez zmian
   if compute_mc_sum:
     mc_channels = [c for c in channels.values() if c not in ("Data", "MC sum")]
     if mc_channels:
@@ -140,6 +130,122 @@ def fill_2d_histograms(df, df_data, channels, variables_2d, titles_2d, modes, to
           for chann in mc_channels[1:]:
             hist_2D[var_key][chann][mode].Scale(scaling_factor)
             hist_2D[var_key]["MC sum"][mode].Add(hist_2D[var_key][chann][mode].GetPtr())
+
+  return hist_2D
+
+
+def _build_flag_channels(mc_flags, data_name, data_flag):
+  """Zwraca {chann: (is_data, flag_expr)} dla kanałów MC (z flag) i Data."""
+  chans = {chann: (False, flag) for chann, flag in mc_flags.items()}
+  if data_name:
+    chans = {data_name: (True, data_flag), **chans}
+  return chans
+
+
+def _flag_filter(flag, total_cut):
+  parts = [p for p in (flag, total_cut) if p]
+  return " && ".join(f"({p})" for p in parts) if parts else "true"
+
+
+def _sum_mc_hists(per_chann, mc_names, scaling_factor, sum_name, sum_hist_name):
+  """Skaluje histogramy MC i zapisuje ich sumę jako per_chann[sum_name]."""
+  mc_hists = []
+  for chann in mc_names:
+    h = per_chann[chann]
+    h = h.GetPtr() if hasattr(h, "GetPtr") else h
+    h.Scale(scaling_factor)
+    mc_hists.append(h)
+  mc_sum = mc_hists[0].Clone(sum_hist_name)
+  for h in mc_hists[1:]:
+    mc_sum.Add(h)
+  per_chann[sum_name] = mc_sum
+
+
+def fill_1d_histograms_flags(df, df_data, mc_flags, variables, titles, modes, total_cut,
+                              scaling_factor=1.0, compute_mc_sum=True,
+                              data_name="Data", data_flag=None, mc_sum_name="MC sum"):
+  """Wersja fill_1d_histograms dla próbek kontrolnych rozdzielanych flagami bool.
+
+  Zamiast mctruth używa wyrażeń boolowskich (kolumn RDataFrame), np.
+    mc_flags = {"has000": "has000", "no000": "!has000"}
+  (klucz = nazwa kanału użyta w legendzie/kolorach/zapisie, wartość = wyrażenie
+  filtrujące). Dostajemy po jednym histogramie MC na flagę, histogram danych
+  (df_data, opcjonalnie z data_flag; domyślnie tylko total_cut) oraz "MC sum"
+  jako sumę przeskalowanych (scaling_factor) histogramów MC.
+  data_name=None wyłącza kanał danych.
+
+  Zwraca hist_1D: {var: {chann: {mode: hist}}} - ta sama struktura, którą
+  przyjmuje draw_and_save_1d_histograms (kolejność: Data, MC..., MC sum),
+  więc wszystko trafia na jeden canvas i do jednego pliku ROOT.
+  """
+  chans = _build_flag_channels(mc_flags, data_name, data_flag)
+  hist_1D = {}
+  for i, var in enumerate(variables):
+    hist_1D[var] = {}
+    title_str = f";{titles[i]};Counts"
+    for chann, (is_data, flag) in chans.items():
+      df_draw = df_data if is_data else df
+      filter_expr = _flag_filter(flag, total_cut)
+      hist_1D[var][chann] = {
+          mode: df_draw.Filter(filter_expr).Histo1D(
+              (f"{var}_{chann}_{mode}", title_str, *modes[mode][i]), var)
+          for mode in modes
+      }
+
+  ROOT.RDF.RunGraphs([
+      hist_1D[var][chann][mode]
+      for var in variables for chann in hist_1D[var] for mode in modes
+  ])
+
+  if compute_mc_sum and mc_flags:
+    for var in variables:
+      by_mode = {mode: {c: hist_1D[var][c][mode] for c in mc_flags} for mode in modes}
+      for mode in modes:
+        _sum_mc_hists(by_mode[mode], list(mc_flags), scaling_factor, mc_sum_name,
+                      f"{var}_{mc_sum_name}_{mode}")
+        hist_1D[var].setdefault(mc_sum_name, {})[mode] = by_mode[mode][mc_sum_name]
+
+  return hist_1D
+
+
+def fill_2d_histograms_flags(df, df_data, mc_flags, variables_2d, titles_2d, modes, total_cut,
+                              scaling_factor=1.0, compute_mc_sum=True,
+                              data_name="Data", data_flag=None, mc_sum_name="MC sum"):
+  """Odpowiednik fill_1d_histograms_flags dla histogramów 2D.
+
+  variables_2d: lista par [var_x, var_y]; titles_2d: lista par tytułów;
+  modes: {mode: [(nbinsX, xlow, xhigh, nbinsY, ylow, yhigh), ...]}.
+
+  Zwraca hist_2D: {"x_y": {chann: {mode: hist}}} (jak dla draw_and_save_2d_histograms).
+  """
+  chans = _build_flag_channels(mc_flags, data_name, data_flag)
+  hist_2D = {}
+  for idx, varset in enumerate(variables_2d):
+    var_key = "_".join(varset)
+    hist_2D[var_key] = {}
+    title_str = f";{titles_2d[idx][0]};{titles_2d[idx][1]}"
+    for chann, (is_data, flag) in chans.items():
+      df_hist = df_data if is_data else df
+      filter_expr = _flag_filter(flag, total_cut)
+      hist_2D[var_key][chann] = {
+          mode: df_hist.Filter(filter_expr).Histo2D(
+              (f"{var_key}_{mode}_{chann}", title_str, *modes[mode][idx]),
+              varset[0], varset[1])
+          for mode in modes
+      }
+
+  ROOT.RDF.RunGraphs([
+      hist_2D[k][chann][mode]
+      for k in hist_2D for chann in hist_2D[k] for mode in modes
+  ])
+
+  if compute_mc_sum and mc_flags:
+    for var_key in hist_2D:
+      for mode in modes:
+        by_chann = {c: hist_2D[var_key][c][mode] for c in mc_flags}
+        _sum_mc_hists(by_chann, list(mc_flags), scaling_factor, mc_sum_name,
+                      f"{var_key}_{mode}_{mc_sum_name}")
+        hist_2D[var_key].setdefault(mc_sum_name, {})[mode] = by_chann[mc_sum_name]
 
   return hist_2D
 
