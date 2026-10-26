@@ -33,6 +33,46 @@ def get_valid_files_fast(file_list):
     return valid
 
 
+def split_root_file(path, tree_name="h1", max_bytes=50 * 1024**3, columns=None):
+    """Dzieli plik ROOT z drzewem na części o rozmiarze <= ~max_bytes.
+
+    RDataFrame::Snapshot nie respektuje TTree::SetMaxTreeSize, więc podział robimy
+    po zapisie: średni rozmiar zdarzenia = rozmiar pliku / liczba wpisów, z tego
+    liczba wpisów na część, a części (path z końcówką _0, _1, ...) zapisywane są
+    jednym przebiegiem po pliku źródłowym. Plik źródłowy jest usuwany po
+    pomyślnym podziale. Jeśli plik mieści się w limicie, zostaje bez zmian.
+
+    Zwraca listę ścieżek (do wczytania np. ROOT.RDataFrame(tree_name, lista)).
+    """
+    size = os.path.getsize(path)
+    if size <= max_bytes:
+        return [path]
+
+    n_entries = ROOT.RDataFrame(tree_name, path).Count().GetValue()
+    per_part = max(1, int(n_entries * max_bytes / size * 0.95))  # 5% zapasu
+    n_parts = -(-n_entries // per_part)
+
+    base, ext = os.path.splitext(path)
+    df = ROOT.RDataFrame(tree_name, path)
+    opts = ROOT.RDF.RSnapshotOptions()
+    opts.fLazy = True
+    cols = list(columns) if columns else [str(c) for c in df.GetColumnNames()]
+
+    parts, snaps = [], []
+    for k in range(n_parts):
+        part_path = f"{base}_{k}{ext}"
+        parts.append(part_path)
+        lo, hi = k * per_part, (k + 1) * per_part
+        snaps.append(
+            df.Filter(f"rdfentry_ >= {lo}ULL && rdfentry_ < {hi}ULL")
+              .Snapshot(tree_name, part_path, cols, opts)
+        )
+    ROOT.RDF.RunGraphs(snaps)
+
+    os.remove(path)
+    return parts
+
+
 def build_cut_expression(cut_list):
   """Łączy listę cięć w jedno wyrażenie logiczne dla RDataFrame.Filter().
 

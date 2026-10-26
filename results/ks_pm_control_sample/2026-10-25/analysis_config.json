@@ -2,7 +2,7 @@
     "saved_errors": "Semileptonic",
     "cutset": "NONE",
     "luminosity_pb_MC": 1444990.0313,
-    "luminosity_pb_data": 400000.0,
-    "scale_factor": 0.276818518699493,
+    "luminosity_pb_data": 1634433.975,
+    "scale_factor": 1.1311039796790605,
     "timestamp": "2026-10-25"
 }
