@@ -2,4 +2,7 @@ hash,filenames,cuts_description
 nocuts,tag_000_1D_variables.root,(brak cięć)
 519c0397,results/ks_pm_control_sample/2026-10-25/efficiency_purity_graphs.root;tag_000_1D_variables.root,neu_clu_num >= 6
 66563976,cache_files;results/ks_pm_control_sample/2026-10-25/efficiency_purity_graphs.root;tag_000_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0
-09acde96,tag_000_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120
+09acde96,results/ks_pm_control_sample/2026-10-25/efficiency_purity_graphs.root;tag_000_1D_variables.root;tag_000_done_signal_selection_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120
+6d56cd00,tag_000_1D_variables.root;tag_000_done_signal_selection_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && Chi2NeutralKinFit > 200
+74f49aa6,tag_000_1D_variables.root;tag_000_done_signal_selection_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) < 3 * 0.890
+dcf15ea2,tag_000_1D_variables.root;tag_000_done_signal_selection_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) < 3 * 0.890 && Chi2PMKinFit < 16
