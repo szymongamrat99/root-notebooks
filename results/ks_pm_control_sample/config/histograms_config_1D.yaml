@@ -1,0 +1,123 @@
+truth_mctruth_id_1d: 1
+truth_only_vars_1d: []
+histograms_1d:
+  Knerec_5:
+    title: m^{inv}_{4#gamma} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 200
+  KnerecSix_5:
+    title: m^{inv}_{6#gamma} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 200
+  Kchrec_5:
+    title: m^{inv}_{+-} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -200
+    - 200
+  Chi2SignalKinFit:
+    title: '#chi^{2}_{+-00}'
+    unit: ''
+    range_x:
+    - 0
+    - 500
+  Chi2NeutralKinFit:
+    title: '#chi^{2}_{00}'
+    unit: ''
+    range_x:
+    - 0
+    - 500
+  Chi2PMKinFit:
+    title: '#chi^{2}_{+-}'
+    unit: ''
+    range_x:
+    - 0
+    - 100
+  MassPi01Fit:
+    title: m^{inv,fit,+-00}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi02Fit:
+    title: m^{inv,fit,+-00}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi0NeutralFit1:
+    title: m^{inv,fit,00}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi0NeutralFit2:
+    title: m^{inv,fit,00}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi0PMFit1:
+    title: m^{inv,fit,+-}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi0PMFit2:
+    title: m^{inv,fit,+-}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi01:
+    title: m^{inv,rec}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi02:
+    title: m^{inv,rec}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  Delta_t_fit:
+    title: '#Deltat^{fit}'
+    unit: '#tau_{S}'
+    range_x:
+    - -300
+    - 300
+  Delta_t_tri_fit:
+    title: '#Deltat^{tri,fit}'
+    unit: '#tau_{S}'
+    range_x:
+    - -300
+    - 300
+  Delta_t_rec:
+    title: '#Deltat^{rec}'
+    unit: '#tau_{S}'
+    range_x:
+    - -300
+    - 300
+  nclu:
+    title: Total number of clusters
+    unit: ''
+    range_x:
+    - 0
+    - 20
+  bestErrorSixGamma:
+    title: '#Delta_{6}'
+    unit: cm^{2}
+    range_x:
+    - 0
+    - 10000
+  neu_clu_num:
+    title: Number of neutral clusters
+    unit: ''
+    range_x:
+    - 0
+    - 20

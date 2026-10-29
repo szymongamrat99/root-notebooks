@@ -1,0 +1,652 @@
+truth_mctruth_id_1d: 1
+truth_only_vars_1d:
+- Kchrec_pz_resolution
+- Kchrec_y_resolution
+- ip_bhabha_z_resolution
+- KnerecFit_z_resolution
+- Delta_t_rec_resolution
+- KnerecNeutralFit_y_resolution
+- KchrecFit_y_resolution
+- KchrecFit_x_resolution
+- KnerecNeutralFit_py_resolution
+- KnerecFit_px_resolution
+- ipFit_x_resolution
+- KchrecPMFit_y_resolution
+- KchboostPMFit_pz_resolution
+- KchboostFit_py_resolution
+- Kchrec_z_resolution
+- trk2_py_resolution
+- KnerecFit_x_resolution
+- KchrecFit_py_resolution
+- KchrecFit_E_resolution
+- ip_bhabha_y_resolution
+- KnetriKinFit_E_resolution
+- trk1_py_resolution
+- Kchboost_E_resolution
+- Knerec_pz_resolution
+- KnerecFit_E_resolution
+- ip_y_resolution
+- Kchrec_E_resolution
+- Kchrec_py_resolution
+- KnetriKinFit_px_resolution
+- ip_bhabha_x_resolution
+- KnerecNeutralFit_E_resolution
+- Knerec_x_resolution
+- trk2_pz_resolution
+- trk1_px_resolution
+- Knerec_py_resolution
+- KnetriKinFit_x_resolution
+- KchrecPMFit_pz_resolution
+- KchboostFit_px_resolution
+- KnerecFit_pz_resolution
+- ip_x_resolution
+- KchboostPMFit_py_resolution
+- Kchboost_py_resolution
+- Kchboost_px_resolution
+- KnerecNeutralFit_px_resolution
+- KnerecNeutralFit_z_resolution
+- Knerec_z_resolution
+- Delta_t_MC
+- Kchboost_pz_resolution
+- KchboostPMFit_px_resolution
+- KnerecFit_y_resolution
+- KnetriKinFit_py_resolution
+- KchboostFit_pz_resolution
+- KchboostPMFit_E_resolution
+- KnetriKinFit_pz_resolution
+- ipFit_y_resolution
+- Delta_t_fit_resolution
+- Knerec_y_resolution
+- KchrecPMFit_x_resolution
+- KchrecPMFit_z_resolution
+- Kchrec_px_resolution
+- KchrecPMFit_E_resolution
+- KchrecFit_px_resolution
+- Kchrec_x_resolution
+- KchrecFit_z_resolution
+- trk1_pz_resolution
+- KchrecPMFit_px_resolution
+- KnerecNeutralFit_pz_resolution
+- ip_z_resolution
+- KchrecFit_pz_resolution
+- KchrecPMFit_py_resolution
+- Knerec_px_resolution
+- trk2_px_resolution
+- KnerecFit_py_resolution
+- KnerecNeutralFit_x_resolution
+- KchboostFit_E_resolution
+- KnetriKinFit_z_resolution
+- KnetriKinFit_y_resolution
+- ipFit_z_resolution
+- Knerec_E_resolution
+histograms_1d:
+  Knerec_5:
+    title: m^{inv}_{4#gamma} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 200
+  KnerecSix_5:
+    title: m^{inv}_{6#gamma} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 200
+  Kchrec_5:
+    title: m^{inv}_{+-} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -200
+    - 200
+  Chi2SignalKinFit:
+    title: '#chi^{2}_{+-00}'
+    unit: ''
+    range_x:
+    - 0
+    - 500
+  Chi2NeutralKinFit:
+    title: '#chi^{2}_{00}'
+    unit: ''
+    range_x:
+    - 0
+    - 500
+  Chi2PMKinFit:
+    title: '#chi^{2}_{+-}'
+    unit: ''
+    range_x:
+    - 0
+    - 100
+  MassPi01Fit:
+    title: m^{inv,fit,+-00}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi02Fit:
+    title: m^{inv,fit,+-00}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi0NeutralFit1:
+    title: m^{inv,fit,00}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi0NeutralFit2:
+    title: m^{inv,fit,00}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi0PMFit1:
+    title: m^{inv,fit,+-}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi0PMFit2:
+    title: m^{inv,fit,+-}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi01:
+    title: m^{inv,rec}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  MassPi02:
+    title: m^{inv,rec}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+    - -400
+    - 400
+  Delta_t_fit:
+    title: '#Deltat^{fit}'
+    unit: '#tau_{S}'
+    range_x:
+    - -300
+    - 300
+  Delta_t_MC:
+    title: '#Deltat^{MC}'
+    unit: '#tau_{S}'
+    range_x:
+    - -300
+    - 300
+  Delta_t_rec:
+    title: '#Deltat^{rec}'
+    unit: '#tau_{S}'
+    range_x:
+    - -300
+    - 300
+  Delta_t_fit_resolution:
+    title: '#Deltat^{fit} - #Deltat^{MC}'
+    unit: '#tau_{S}'
+    range_x:
+    - -300
+    - 300
+  Delta_t_rec_resolution:
+    title: '#Deltat^{rec} - #Deltat^{MC}'
+    unit: '#tau_{S}'
+    range_x:
+    - -300
+    - 300
+  trk1_px_resolution:
+    title: p^{x,rec}_{+-,1} - p^{x,MC}_{+-,1}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  trk2_px_resolution:
+    title: p^{x,rec}_{+-,2} - p^{x,MC}_{+-,2}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  trk1_py_resolution:
+    title: p^{y,rec}_{+-,1} - p^{y,MC}_{+-,1}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  trk2_py_resolution:
+    title: p^{y,rec}_{+-,2} - p^{y,MC}_{+-,2}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  trk1_pz_resolution:
+    title: p^{z,rec}_{+-,1} - p^{z,MC}_{+-,1}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  trk2_pz_resolution:
+    title: p^{z,rec}_{+-,2} - p^{z,MC}_{+-,2}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Kchrec_px_resolution:
+    title: p^{x,rec}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Kchrec_py_resolution:
+    title: p^{y,rec}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Kchrec_pz_resolution:
+    title: p^{z,rec}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Kchrec_E_resolution:
+    title: E^{rec}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  Kchrec_x_resolution:
+    title: x^{rec}_{+-} - x^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  Kchrec_y_resolution:
+    title: y^{rec}_{+-} - y^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  Kchrec_z_resolution:
+    title: z^{rec}_{+-} - z^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  Kchboost_px_resolution:
+    title: p^{x,boost}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Kchboost_py_resolution:
+    title: p^{y,boost}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Kchboost_pz_resolution:
+    title: p^{z,boost}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Kchboost_E_resolution:
+    title: E^{boost}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  Knerec_px_resolution:
+    title: p^{x,rec}_{K#rightarrow#pi^{0}#pi^{0}} - p^{x,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Knerec_py_resolution:
+    title: p^{y,rec}_{K#rightarrow#pi^{0}#pi^{0}} - p^{y,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Knerec_pz_resolution:
+    title: p^{z,rec}_{K#rightarrow#pi^{0}#pi^{0}} - p^{z,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  Knerec_E_resolution:
+    title: E^{rec}_{K#rightarrow#pi^{0}#pi^{0}} - E^{MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  Knerec_x_resolution:
+    title: x^{rec}_{00} - x^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  Knerec_y_resolution:
+    title: y^{rec}_{00} - y^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  Knerec_z_resolution:
+    title: z^{rec}_{00} - z^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KnetriKinFit_px_resolution:
+    title: p^{x,tri}_{K#rightarrow#pi^{0}#pi^{0}} - p^{x,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnetriKinFit_py_resolution:
+    title: p^{y,tri}_{K#rightarrow#pi^{0}#pi^{0}} - p^{y,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnetriKinFit_pz_resolution:
+    title: p^{z,tri}_{K#rightarrow#pi^{0}#pi^{0}} - p^{z,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnetriKinFit_E_resolution:
+    title: E^{tri}_{K#rightarrow#pi^{0}#pi^{0}} - E^{MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  KnetriKinFit_x_resolution:
+    title: x^{tri}_{00} - x^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KnetriKinFit_y_resolution:
+    title: y^{tri}_{00} - y^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KnetriKinFit_z_resolution:
+    title: z^{tri}_{00} - z^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KchrecFit_px_resolution:
+    title: p^{x,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchrecFit_py_resolution:
+    title: p^{y,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchrecFit_pz_resolution:
+    title: p^{z,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchrecFit_E_resolution:
+    title: E^{fit}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  KchrecFit_x_resolution:
+    title: x^{fit}_{+-} - x^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KchrecFit_y_resolution:
+    title: y^{fit}_{+-} - y^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KchrecFit_z_resolution:
+    title: z^{fit}_{+-} - z^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KchboostFit_px_resolution:
+    title: p^{x,boost,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchboostFit_py_resolution:
+    title: p^{y,boost,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchboostFit_pz_resolution:
+    title: p^{z,boost,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchboostFit_E_resolution:
+    title: E^{boost,fit}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  KnerecFit_px_resolution:
+    title: p^{x,fit}_{K#rightarrow#pi^{0}#pi^{0}} - p^{x,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnerecFit_py_resolution:
+    title: p^{y,fit}_{K#rightarrow#pi^{0}#pi^{0}} - p^{y,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnerecFit_pz_resolution:
+    title: p^{z,fit}_{K#rightarrow#pi^{0}#pi^{0}} - p^{z,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnerecFit_E_resolution:
+    title: E^{fit}_{K#rightarrow#pi^{0}#pi^{0}} - E^{MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  KnerecFit_x_resolution:
+    title: x^{fit}_{00} - x^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KnerecFit_y_resolution:
+    title: y^{fit}_{00} - y^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KnerecFit_z_resolution:
+    title: z^{fit}_{00} - z^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ip_bhabha_x_resolution:
+    title: x^{bhabha}_{IP} - x^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ip_bhabha_y_resolution:
+    title: y^{bhabha}_{IP} - y^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ip_bhabha_z_resolution:
+    title: z^{bhabha}_{IP} - z^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ip_x_resolution:
+    title: x^{corr}_{IP} - x^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ip_y_resolution:
+    title: y^{corr}_{IP} - y^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ip_z_resolution:
+    title: z^{corr}_{IP} - z^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ipFit_x_resolution:
+    title: x^{fit}_{IP} - x^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ipFit_y_resolution:
+    title: y^{fit}_{IP} - y^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  ipFit_z_resolution:
+    title: z^{fit}_{IP} - z^{MC}_{IP}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KchrecPMFit_px_resolution:
+    title: p^{x,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchrecPMFit_py_resolution:
+    title: p^{y,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchrecPMFit_pz_resolution:
+    title: p^{z,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchrecPMFit_E_resolution:
+    title: E^{fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  KchrecPMFit_x_resolution:
+    title: x^{fit(+-)}_{+-} - x^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KchrecPMFit_y_resolution:
+    title: y^{fit(+-)}_{+-} - y^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KchrecPMFit_z_resolution:
+    title: z^{fit(+-)}_{+-} - z^{MC}_{+-}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KchboostPMFit_px_resolution:
+    title: p^{x,boost,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchboostPMFit_py_resolution:
+    title: p^{y,boost,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchboostPMFit_pz_resolution:
+    title: p^{z,boost,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KchboostPMFit_E_resolution:
+    title: E^{boost,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  KnerecNeutralFit_px_resolution:
+    title: p^{x,fit(00)}_{K#rightarrow#pi^{0}#pi^{0}} - p^{x,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnerecNeutralFit_py_resolution:
+    title: p^{y,fit(00)}_{K#rightarrow#pi^{0}#pi^{0}} - p^{y,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnerecNeutralFit_pz_resolution:
+    title: p^{z,fit(00)}_{K#rightarrow#pi^{0}#pi^{0}} - p^{z,MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV/c
+    range_x:
+    - -300
+    - 300
+  KnerecNeutralFit_E_resolution:
+    title: E^{fit(00)}_{K#rightarrow#pi^{0}#pi^{0}} - E^{MC}_{K#rightarrow#pi^{0}#pi^{0}}
+    unit: MeV
+    range_x:
+    - -300
+    - 300
+  KnerecNeutralFit_x_resolution:
+    title: x^{fit(00)}_{00} - x^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KnerecNeutralFit_y_resolution:
+    title: y^{fit(00)}_{00} - y^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300
+  KnerecNeutralFit_z_resolution:
+    title: z^{fit(00)}_{00} - z^{MC}_{00}
+    unit: cm
+    range_x:
+    - -300
+    - 300

@@ -1,3 +1,5 @@
+import yaml
+
 import ROOT
 import concurrent.futures
 import csv
@@ -147,3 +149,65 @@ def log_analysis_run(result_dir, cut_hash, output_filename, cut_list):
       f"[INFO] Zaktualizowano wpis dla hashu {cut_hash} w rejestrze w"
       f" {result_dir}/analysis_registry.csv"
   )
+
+# Yaml config
+# --- 2. Scalanie danych w strukturę wygodną do pliku konfiguracyjnego ---
+
+def histogram_1D_config_creator(variables_1D: list, variables_1D_titles: list, unit_1D: list, range_X_1D: list[tuple], TRUTH_MCTRUTH_ID_1D: int, TRUTH_ONLY_VARS_1D: list, output_filename: str = "histograms_config.yaml"):
+  import yaml
+  config_data = {
+      "truth_mctruth_id_1d": TRUTH_MCTRUTH_ID_1D,
+      "truth_only_vars_1d": list(TRUTH_ONLY_VARS_1D),
+      "histograms_1d": {}
+  }
+
+  for name, title, unit, rng in zip(variables_1D, variables_1D_titles, unit_1D, range_X_1D):
+      hist_entry = {
+          "title": title,
+          "unit": unit,
+          # Używamy jawnej konwersji na listę, ale yaml.dump potrafi zapisać małe listy w jednej linii,
+          # jeśli użyjemy tricku z niestandardowym reprezentantem lub dopiszemy to w odpowiedni sposób.
+          "range_x": list(rng)
+      }
+      config_data["histograms_1d"][name] = hist_entry
+
+  # --- 3. Zapis do pliku YAML ---
+  with open(output_filename, "w", encoding="utf-8") as f:
+      # allow_unicode=True sprawia, że symbole ROOTa (np. greckie litery) zapiszą się czytelnie
+      # sort_keys=False zachowuje kolejność kluczy
+      yaml.dump(config_data, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
+
+  print(f"Pomyślnie wygenerowano plik konfiguracyjny YAML: {output_filename}")
+
+def save_resolutions_to_yaml(fit_results_dict: dict, output_filename: str = "resolutions_config.yaml"):
+    """
+    Zapisuje wyznaczone parametry rozdzielczości i fitów do osobnego pliku YAML.
+    
+    Oczekiwany format słownika fit_results_dict:
+    {
+        "NazwaZmiennej": {
+            "sigma_core": (val, err),
+            "sigma_tail": (val, err),
+            "mean": (val, err),
+            "amplitude_ratio": (val, err),
+            "chi2_ndf": float_val,
+            "fit_status": int_val
+        },
+        ...
+    }
+    """
+    config_data = {
+        "variables": fit_results_dict
+    }
+
+    # Zapis do pliku YAML
+    with open(output_filename, "w", encoding="utf-8") as f:
+        yaml.dump(
+            config_data, 
+            f, 
+            allow_unicode=True, 
+            sort_keys=False, 
+            default_flow_style=None # Pozwala na ładne formatowanie list [wartość, niepewność] w jednej linii
+        )
+
+    print(f"Pomyślnie zrzucono wyniki rozdzielczości do pliku: {output_filename}")

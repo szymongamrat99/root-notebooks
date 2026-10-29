@@ -194,6 +194,21 @@ std::vector<ROOT::RVec<double>> get_matched_vector(const ROOT::RVec<double>& trk
     
     return {trk1, trk2};
 }
+
+// ==========================================
+// 7. Lorentz transformation
+// ==========================================
+#include <TLorentzVector.h>
+
+ROOT::RVec<double> lorentz_transform(const ROOT::RVec<double>& p, const double& E_mother, const double& px_mother, const double& py_mother, const double& pz_mother) {
+    TLorentzVector p_vec(p[0], p[1], p[2], p[3]);
+    TLorentzVector mother_vec(px_mother, py_mother, pz_mother, E_mother);
+    TLorentzVector p_boosted = p_vec;
+    p_boosted.Boost(-mother_vec.BoostVector());
+    return {p_boosted.Px(), p_boosted.Py(), p_boosted.Pz(), p_boosted.E()};
+}
+
+
 """)
 
 
