@@ -6,3 +6,5 @@ nocuts,tag_000_1D_variables.root,(brak cięć)
 6d56cd00,tag_000_1D_variables.root;tag_000_done_signal_selection_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && Chi2NeutralKinFit > 200
 74f49aa6,tag_000_1D_variables.root;tag_000_done_signal_selection_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) < 3 * 0.890
 dcf15ea2,tag_000_1D_variables.root;tag_000_done_signal_selection_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) < 3 * 0.890 && Chi2PMKinFit < 16
+b75c8cbc,tag_000_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && Chi2SignalKinFit < 30.0
+c7e04cb6,tag_000_1D_variables.root;tag_000_done_signal_selection_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) < 3 * 0.890 && Chi2SignalKinFit < 30
