@@ -1,7 +1,9 @@
 import ROOT
 import ctypes
 import json
+import math
 import os
+import operator
 
 from utils.general_utils import log_analysis_run
 
@@ -587,51 +589,218 @@ def fit_and_scale_mc(h_data, h_pm, h_nonpm):
         print("TFractionFitter: brak zbieżności fitu!")
         return h_pm_fit, h_nonpm_fit, None, (0.0, 0.0)
 
-def fill_1d_histograms_simple(df, df_data, channels, model, total_cut,
-                        scaling_factor=1.0, compute_mc_sum=True):
-  """Wypełnia histogramy 1D dla podanych kanałów i (opcjonalnie) dolicza "MC sum".
+def _histogram_model_for_cut(model, cut_hash):
+  if cut_hash not in model:
+    raise KeyError(f"Brak modelu histogramów dla cut_hash={cut_hash!r}")
+  cut_model = model[cut_hash]
+  if not cut_model:
+    raise ValueError(f"Pusty model histogramów dla cut_hash={cut_hash!r}")
+  return cut_model
 
-  channels: dict {mctruth: chann_name}, analogiczny do globalnego `channName`.
-    Kanał o nazwie "Data" jest brany z df_data, pozostałe z df. Wpis o wartości
-    "MC sum" jest ignorowany (sumę liczy ta funkcja, jeśli compute_mc_sum=True).
-    Dla zmiennych widocznych tylko dla jednego mctruth (np. prawdziwe wartości
-    z MC) wystarczy przekazać np. {1: channName[1]} i compute_mc_sum=False -
-    wtedy nie powstają ani Data, ani MC sum dla tych zmiennych.
 
-  Zwraca hist_1D: {var: {chann: {mode: hist}}}.
+def _histogram_axis(model_entry, variable):
+  try:
+    n_bins = operator.index(model_entry["n_bins"])
+    x_min, x_max = (float(bound) for bound in model_entry["range_x"])
+  except (KeyError, TypeError, ValueError) as error:
+    raise ValueError(
+        f"Niepoprawny model osi histogramu dla zmiennej {variable!r}"
+    ) from error
+
+  if (
+      n_bins <= 0
+      or not math.isfinite(x_min)
+      or not math.isfinite(x_max)
+      or x_min >= x_max
+  ):
+    raise ValueError(
+        f"Niepoprawny model osi histogramu dla zmiennej {variable!r}: "
+        f"n_bins={n_bins}, range_x={[x_min, x_max]}"
+    )
+  return n_bins, x_min, x_max
+
+
+def _model_variables(cut_model):
+  return list(dict.fromkeys(
+      variable
+      for variables_by_mode in cut_model.values()
+      for variable in variables_by_mode
+  ))
+
+
+def _model_mc_sum(histograms, channels, scaling_factor, sum_name, hist_name):
+  if not channels or any(channel not in histograms for channel in channels):
+    return None
+
+  channel_hists = {channel: histograms[channel] for channel in channels}
+  _sum_mc_hists(channel_hists, channels, scaling_factor, sum_name, hist_name)
+  return channel_hists[sum_name]
+
+
+def fill_1D_histogram_simple(
+    df, df_data, channels, model, cut_hash, total_cut,
+    variables=None, scaling_factor=1.0, compute_mc_sum=True
+):
+  """Wypełnia histogramy 1D używając modelu {cut_hash: {mode: {variable: ...}}}.
+
+  `channels` ma format {mctruth: channel_name}; kanał "Data" korzysta z df_data.
+  Jeśli `variables` jest pominięte, funkcja bierze zmienne bezpośrednio z modelu.
+  Zwraca {variable: {channel: {mode: histogram}}}.
   """
+  cut_model = _histogram_model_for_cut(model, cut_hash)
+  variables = _model_variables(cut_model) if variables is None else list(variables)
+  unknown_variables = set(variables) - set(_model_variables(cut_model))
+  if unknown_variables:
+    raise KeyError(f"Zmienne nieobecne w modelu: {sorted(unknown_variables)}")
+
   hist_1D = {}
-  for i, var in enumerate(variables):
-    hist_1D[var] = {}
-    for mctruth, chann in channels.items():
-      if chann == "MC sum":
+  pending = []
+  for variable in variables:
+    hist_1D[variable] = {}
+    for mctruth, channel in channels.items():
+      if channel == "MC sum":
         continue
 
-      hist_1D[var][chann] = {}
-      df_draw = df_data if chann == "Data" else df
-      title_str = f";{titles[i]};Counts"
-      for mode in modes:
-        filter_expr = f"mctruth == {mctruth} && {total_cut}"
-        hist_1D[var][chann][mode] = df_draw.Filter(filter_expr).Histo1D(
-            (f"{var}_{chann}_{mode}", title_str, *modes[mode][i]), var
+      df_draw = df_data if channel == "Data" else df
+      hist_1D[variable][channel] = {}
+      for mode, variables_by_mode in cut_model.items():
+        entry = variables_by_mode.get(variable)
+        if entry is None:
+          continue
+
+        n_bins, x_min, x_max = _histogram_axis(entry, variable)
+        title = entry.get("title") or variable
+        histogram = df_draw.Filter(
+            f"mctruth == {mctruth} && {total_cut}"
+        ).Histo1D(
+            (f"{variable}_{channel}_{mode}", f";{title};Counts",
+             n_bins, x_min, x_max),
+            variable,
         )
+        hist_1D[variable][channel][mode] = histogram
+        pending.append(histogram)
 
-  ROOT.RDF.RunGraphs([
-      hist_1D[var][chann][mode]
-      for var in variables for chann in hist_1D[var] for mode in modes
-  ])
+  if pending:
+    ROOT.RDF.RunGraphs(pending)
 
-  if compute_mc_sum:
-    mc_channels = [c for c in channels.values() if c not in ("Data", "MC sum")]
-    if mc_channels:
-      first_mc = mc_channels[0]
-      for var in variables:
-        hist_1D[var]["MC sum"] = {}
-        for mode in modes:
-          hist_1D[var][first_mc][mode].Scale(scaling_factor)
-          hist_1D[var]["MC sum"][mode] = hist_1D[var][first_mc][mode].Clone()
-          for chann in mc_channels[1:]:
-            hist_1D[var][chann][mode].Scale(scaling_factor)
-            hist_1D[var]["MC sum"][mode].Add(hist_1D[var][chann][mode].GetPtr())
+  mc_channels = list(dict.fromkeys(
+      channel for channel in channels.values()
+      if channel not in ("Data", "MC sum")
+  ))
+  if compute_mc_sum and mc_channels:
+    for variable, per_channel in hist_1D.items():
+      per_channel["MC sum"] = {}
+      for mode in cut_model:
+        if any(mode not in per_channel.get(channel, {}) for channel in mc_channels):
+          continue
+        summed = _model_mc_sum(
+            {channel: per_channel[channel][mode] for channel in mc_channels},
+            mc_channels, scaling_factor, "MC sum",
+            f"{variable}_MC_sum_{mode}",
+        )
+        if summed is not None:
+          per_channel["MC sum"][mode] = summed
 
   return hist_1D
+
+
+def fill_2D_histogram_simple(
+    df, df_data, channels, model, cut_hash, variables_2d, total_cut,
+    scaling_factor=1.0, compute_mc_sum=True
+):
+  """Wypełnia histogramy 2D, używając osi zmiennych z modelu 1D.
+
+  `variables_2d` to lista par (x, y). Dla każdej osi liczba binów i zakres
+  pochodzą z wpisu zmiennej w modelu wskazanego przez `cut_hash` i `mode`.
+  Zwraca {"x_y": {channel: {mode: histogram}}}.
+  """
+  cut_model = _histogram_model_for_cut(model, cut_hash)
+  available_variables = set(_model_variables(cut_model))
+  hist_2D = {}
+  pending = []
+
+  for variable_pair in variables_2d:
+    if len(variable_pair) != 2:
+      raise ValueError(f"Zmienna 2D musi być parą (x, y): {variable_pair!r}")
+    var_x, var_y = variable_pair
+    missing = {var_x, var_y} - available_variables
+    if missing:
+      raise KeyError(f"Zmienne nieobecne w modelu: {sorted(missing)}")
+
+    var_key = f"{var_x}_{var_y}"
+    hist_2D[var_key] = {}
+    for mctruth, channel in channels.items():
+      if channel == "MC sum":
+        continue
+
+      df_draw = df_data if channel == "Data" else df
+      hist_2D[var_key][channel] = {}
+      for mode, variables_by_mode in cut_model.items():
+        entry_x = variables_by_mode.get(var_x)
+        entry_y = variables_by_mode.get(var_y)
+        if entry_x is None or entry_y is None:
+          continue
+
+        n_x, x_min, x_max = _histogram_axis(entry_x, var_x)
+        n_y, y_min, y_max = _histogram_axis(entry_y, var_y)
+        title_x = entry_x.get("title") or var_x
+        title_y = entry_y.get("title") or var_y
+        histogram = df_draw.Filter(
+            f"mctruth == {mctruth} && {total_cut}"
+        ).Histo2D(
+            (f"{var_key}_{channel}_{mode}",
+             f";{title_x};{title_y}",
+             n_x, x_min, x_max, n_y, y_min, y_max),
+            var_x, var_y,
+        )
+        hist_2D[var_key][channel][mode] = histogram
+        pending.append(histogram)
+
+  if pending:
+    ROOT.RDF.RunGraphs(pending)
+
+  mc_channels = list(dict.fromkeys(
+      channel for channel in channels.values()
+      if channel not in ("Data", "MC sum")
+  ))
+  if compute_mc_sum and mc_channels:
+    for var_key, per_channel in hist_2D.items():
+      per_channel["MC sum"] = {}
+      for mode in cut_model:
+        if any(mode not in per_channel.get(channel, {}) for channel in mc_channels):
+          continue
+        summed = _model_mc_sum(
+            {channel: per_channel[channel][mode] for channel in mc_channels},
+            mc_channels, scaling_factor, "MC sum",
+            f"{var_key}_MC_sum_{mode}",
+        )
+        if summed is not None:
+          per_channel["MC sum"][mode] = summed
+
+  return hist_2D
+
+
+def fill_1d_histograms_simple(
+    df, df_data, channels, model, total_cut, scaling_factor=1.0,
+    compute_mc_sum=True, cut_hash=None, variables=None
+):
+  """Zgodnościowa nazwa dla fill_1D_histogram_simple."""
+  if cut_hash is None:
+    if len(model) != 1:
+      raise ValueError("Podaj cut_hash, gdy model zawiera więcej niż jeden hash")
+    cut_hash = next(iter(model))
+  return fill_1D_histogram_simple(
+      df, df_data, channels, model, cut_hash, total_cut, variables,
+      scaling_factor, compute_mc_sum,
+  )
+
+
+def fill_2d_histograms_simple(
+    df, df_data, channels, model, cut_hash, variables_2d, total_cut,
+    scaling_factor=1.0, compute_mc_sum=True
+):
+  """Zgodnościowa nazwa dla fill_2D_histogram_simple."""
+  return fill_2D_histogram_simple(
+      df, df_data, channels, model, cut_hash, variables_2d, total_cut,
+      scaling_factor, compute_mc_sum,
+  )
