@@ -586,3 +586,52 @@ def fit_and_scale_mc(h_data, h_pm, h_nonpm):
     else:
         print("TFractionFitter: brak zbieżności fitu!")
         return h_pm_fit, h_nonpm_fit, None, (0.0, 0.0)
+
+def fill_1d_histograms_simple(df, df_data, channels, model, total_cut,
+                        scaling_factor=1.0, compute_mc_sum=True):
+  """Wypełnia histogramy 1D dla podanych kanałów i (opcjonalnie) dolicza "MC sum".
+
+  channels: dict {mctruth: chann_name}, analogiczny do globalnego `channName`.
+    Kanał o nazwie "Data" jest brany z df_data, pozostałe z df. Wpis o wartości
+    "MC sum" jest ignorowany (sumę liczy ta funkcja, jeśli compute_mc_sum=True).
+    Dla zmiennych widocznych tylko dla jednego mctruth (np. prawdziwe wartości
+    z MC) wystarczy przekazać np. {1: channName[1]} i compute_mc_sum=False -
+    wtedy nie powstają ani Data, ani MC sum dla tych zmiennych.
+
+  Zwraca hist_1D: {var: {chann: {mode: hist}}}.
+  """
+  hist_1D = {}
+  for i, var in enumerate(variables):
+    hist_1D[var] = {}
+    for mctruth, chann in channels.items():
+      if chann == "MC sum":
+        continue
+
+      hist_1D[var][chann] = {}
+      df_draw = df_data if chann == "Data" else df
+      title_str = f";{titles[i]};Counts"
+      for mode in modes:
+        filter_expr = f"mctruth == {mctruth} && {total_cut}"
+        hist_1D[var][chann][mode] = df_draw.Filter(filter_expr).Histo1D(
+            (f"{var}_{chann}_{mode}", title_str, *modes[mode][i]), var
+        )
+
+  ROOT.RDF.RunGraphs([
+      hist_1D[var][chann][mode]
+      for var in variables for chann in hist_1D[var] for mode in modes
+  ])
+
+  if compute_mc_sum:
+    mc_channels = [c for c in channels.values() if c not in ("Data", "MC sum")]
+    if mc_channels:
+      first_mc = mc_channels[0]
+      for var in variables:
+        hist_1D[var]["MC sum"] = {}
+        for mode in modes:
+          hist_1D[var][first_mc][mode].Scale(scaling_factor)
+          hist_1D[var]["MC sum"][mode] = hist_1D[var][first_mc][mode].Clone()
+          for chann in mc_channels[1:]:
+            hist_1D[var][chann][mode].Scale(scaling_factor)
+            hist_1D[var]["MC sum"][mode].Add(hist_1D[var][chann][mode].GetPtr())
+
+  return hist_1D
