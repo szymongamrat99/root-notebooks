@@ -190,11 +190,15 @@ def save_resolutions_to_yaml(fit_results_dict: dict, output_filename: str = "res
             "sigma_tail": (val, err),
             "mean": (val, err),
             "amplitude_ratio": (val, err),
+            "fit_model": "single_gaussian" or "double_gaussian",
             "chi2_ndf": float_val,
             "fit_status": int_val
         },
         ...
     }
+
+    For a single-Gaussian fit, sigma_core and sigma_tail contain the same
+    fitted sigma to preserve compatibility with existing consumers.
     """
     config_data = {
         "variables": fit_results_dict
