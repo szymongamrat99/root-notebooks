@@ -1,0 +1,8 @@
+hash,filenames,cuts_description
+nocuts,separated_kin_fits_1D_variables.root,(brak cięć)
+51ae8d0f,separated_kin_fits_1D_variables.root,"m1_vs_m2_cut(MassPi0NeutralFit1, MassPi0NeutralFit2, 12.0, 23.333333333333336)"
+72232175,separated_kin_fits_1D_variables.root,"m1_vs_m2_cut(MassPi0NeutralFit1, MassPi0NeutralFit2, 12.0, 23.333333333333336) && Chi2PMKinFit < 2.666666666666667"
+c83741df,separated_kin_fits_1D_variables.root,"m1_vs_m2_cut(MassPi0NeutralFit1, MassPi0NeutralFit2, 12.0, 23.333333333333336) && Chi2PMKinFit < 2.666666666666667 && Chi2NeutralKinFit < 21.666666666666668"
+0e039090,separated_kin_fits_1D_variables.root,"m1_vs_m2_cut(MassPi0NeutralFit1, MassPi0NeutralFit2, 44.00000000000001, 90.0)"
+6765aec4,separated_kin_fits_1D_variables.root,"m1_vs_m2_cut(MassPi0NeutralFit1, MassPi0NeutralFit2, 44.00000000000001, 90.0) && Chi2PMKinFit < 2.3333333333333335"
+7a9b5775,separated_kin_fits_1D_variables.root,"m1_vs_m2_cut(MassPi0NeutralFit1, MassPi0NeutralFit2, 44.00000000000001, 90.0) && Chi2PMKinFit < 2.3333333333333335 && Chi2NeutralKinFit < 13.333333333333334"

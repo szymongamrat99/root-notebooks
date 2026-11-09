@@ -116,6 +116,13 @@ double calc_z_component(const ROOT::RVec<double>& k, const ROOT::RVec<double>& i
     return -999.0;
 }
 
+double magnitude(const ROOT::RVec<double>& v) {
+    if (v.size() > 2) {
+        return std::sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
+    }
+    return -999.0;
+}
+
 // ==========================================
 // 4. Ellipse cut on minv plane
 // =========================================
@@ -208,7 +215,97 @@ ROOT::RVec<double> lorentz_transform(const ROOT::RVec<double>& p, const double& 
     return {p_boosted.Px(), p_boosted.Py(), p_boosted.Pz(), p_boosted.E()};
 }
 
+// ==========================================
+// 8. Find semileptonic ks kl decays
+// ==========================================
+int find_ks_kl_semileptonic(const int mctruth,
+                            const int ntmc, 
+                            const int nvtxmc,
+                            const ROOT::RVec<int>& vtxmc,
+                            const ROOT::RVec<int>& mother, 
+                            const ROOT::RVec<int>& pidmc)
+{
+  if (mctruth != 5 && mctruth != 0 && mctruth != -1)
+    return -1;
 
+  int muonpluskl = 0;
+  int muonminuskl = 0;
+  int positronkl = 0;
+  int electronkl = 0;
+  int pipluskl = 0;
+  int piminuskl = 0;
+
+  int muonplusks = 0;
+  int muonminusks = 0;
+  int positronks = 0;
+  int electronks = 0;
+  int piplusks = 0;
+  int piminusks = 0;
+
+  for (int j = 0; j < ntmc; ++j)
+  {
+    if (mother[vtxmc[j] - 1] == 10)
+    {
+      switch (pidmc[j])
+      {
+        case 5:
+          muonpluskl++;
+          break;
+        case 6:
+          muonminuskl++;
+          break;
+        case 2:
+          positronkl++;
+          break;
+        case 3:
+          electronkl++;
+          break;
+        case 8:
+          pipluskl++;
+          break;
+        case 9:
+          piminuskl++;
+          break;
+      }
+    }
+
+    if (mother[vtxmc[j] - 1] == 16)
+    {
+      switch (pidmc[j])
+      {
+        case 5:
+          muonplusks++;
+          break;
+        case 6:
+          muonminusks++;
+          break;
+        case 2:
+          positronks++;
+          break;
+        case 3:
+          electronks++;
+          break;
+        case 8:
+          piplusks++;
+          break;
+        case 9:
+          piminusks++;
+          break;
+      }
+    }
+  }
+
+  bool condKL = (muonpluskl + muonminuskl + positronkl + electronkl) == 1 && (pipluskl + piminuskl) == 1;
+  bool condKS = (muonplusks + muonminusks + positronks + electronks) == 1 && (piplusks + piminusks) == 1;
+
+  if (condKL && !condKS)
+    return 10;
+  if (!condKL && condKS)
+    return 16;
+  if (condKL && condKS)
+    return 26;
+  return -1;
+}
 """)
 
 
