@@ -1,0 +1,4 @@
+hash,filenames,cuts_description
+nocuts,kl_pm_control_sample_1D_truth_variables.root;kl_pm_control_sample_1D_variables.root,(brak cięć)
+48c12136,kl_pm_control_sample_1D_truth_variables.root;kl_pm_control_sample_1D_variables.root,abs(KchrecKS_5) <= 5
+008eb26a,kl_pm_control_sample_1D_truth_variables.root;kl_pm_control_sample_1D_variables.root,abs(KchrecKS_5) <= 5 && abs(mag_KS_phiCM) <= 10

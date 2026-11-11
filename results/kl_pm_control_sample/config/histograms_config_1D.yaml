@@ -1,149 +1,91 @@
-truth_mctruth_id_1d: 1
+truth_mctruth_id_1d: 7
 truth_only_vars_1d:
+- Delta_t_fit_resolution
+- Delta_t_rec_resolution
 - Delta_t_MC
 histograms_1d:
-  Knerec_5:
-    title: m^{inv}_{4#gamma} - m_{K^{0}}
-    unit: MeV/c^{2}
-    range_x:
-      full:
-        - -400
-        - 200
-      zoom:
-        - -200
-        - 100
-  KnerecSix_5:
-    title: m^{inv}_{6#gamma} - m_{K^{0}}
-    unit: MeV/c^{2}
-    range_x:
-      full:
-        - -400
-        - 200
-      zoom:
-        - -200
-        - 200
-  Kchrec_5:
-    title: m^{inv}_{+-} - m_{K^{0}}
+  KchrecKS_5:
+    title: m^{inv}_{+-,1} - m_{K^{0}}
     unit: MeV/c^{2}
     range_x:
       full:
         - -200
         - 200
       zoom:
-        - -10
-        - 10
-  Chi2SignalKinFit:
-    title: '#chi^{2}_{+-00}'
-    unit: ''
-    range_x:
-      full:
-        - 0
-        - 500
-      zoom:
-        - 0
-        - 100
-  Chi2NeutralKinFit:
-    title: '#chi^{2}_{00}'
-    unit: ''
-    range_x:
-      full:
-        - 0
-        - 500
-      zoom:
-        - 0
-        - 100
-  Chi2PMKinFit:
-    title: '#chi^{2}_{+-}'
-    unit: ''
-    range_x:
-      full:
-        - 0
-        - 100
-      zoom:
-        - 0
-        - 20
-  MassPi01Fit:
-    title: m^{inv,fit,+-00}_{#gamma#gamma,1} - m_{#pi^{0}}
+        - -15
+        - 15
+  KchrecKL_5:
+    title: m^{inv}_{+-,2} - m_{K^{0}}
     unit: MeV/c^{2}
     range_x:
       full:
-        - -400
-        - 400
+        - -200
+        - 200
       zoom:
-        - -100
-        - 100
-  MassPi02Fit:
-    title: m^{inv,fit,+-00}_{#gamma#gamma,2} - m_{#pi^{0}}
-    unit: MeV/c^{2}
+        - -15
+        - 15
+  rho_KS:
+    title: '#rho_{K_{1}}'
+    unit: 'cm'
     range_x:
       full:
-        - -400
-        - 400
+        - 0.0
+        - 150.0
       zoom:
-        - -100
-        - 100
-  MassPi0NeutralFit1:
-    title: m^{inv,fit,00}_{#gamma#gamma,1} - m_{#pi^{0}}
-    unit: MeV/c^{2}
+        - 0.0
+        - 10.0
+  rho_KL:
+    title: '#rho_{K_{2}}'
+    unit: 'cm'
     range_x:
       full:
-        - -400
-        - 400
+        - 0.0
+        - 150.0
       zoom:
-        - -100
-        - 100
-  MassPi0NeutralFit2:
-    title: m^{inv,fit,00}_{#gamma#gamma,2} - m_{#pi^{0}}
-    unit: MeV/c^{2}
+        - 0.0
+        - 10.0
+  mag_KS_phiCM:
+    title: '|#vec{p}^{CM}_{+,1} + #vec{p}^{CM}_{-,1}| - |p^{CM}_{K}|'
+    unit: 'MeV/c'
     range_x:
       full:
-        - -400
-        - 400
+        - -100.0
+        - 100.0
       zoom:
-        - -100
-        - 100
-  MassPi0PMFit1:
-    title: m^{inv,fit,+-}_{#gamma#gamma,1} - m_{#pi^{0}}
-    unit: MeV/c^{2}
+        - -20.0
+        - 20.0
+  mag_KL_phiCM:
+    title: '|#vec{p}^{CM}_{+,2} + #vec{p}^{CM}_{-,2}| - |p^{CM}_{K}|'
+    unit: 'MeV/c'
     range_x:
       full:
-        - -400
-        - 400
+        - -100.0
+        - 100.0
       zoom:
-        - -100
-        - 100
-  MassPi0PMFit2:
-    title: m^{inv,fit,+-}_{#gamma#gamma,2} - m_{#pi^{0}}
-    unit: MeV/c^{2}
+        - -20.0
+        - 20.0
+  QmissKS:
+    title: 'Q_{miss}^{K_{1}}'
+    unit: 'MeV/c'
     range_x:
       full:
-        - -400
-        - 400
+        - 0.0
+        - 500.0
       zoom:
-        - -100
-        - 100
-  MassPi01:
-    title: m^{inv,rec}_{#gamma#gamma,1} - m_{#pi^{0}}
-    unit: MeV/c^{2}
+        - 0.0
+        - 20.0
+  QmissKL:
+    title: 'Q_{miss}^{K_{2}}'
+    unit: 'MeV/c'
     range_x:
       full:
-        - -400
-        - 400
+        - 0.0
+        - 500.0
       zoom:
-        - -100
-        - 100
-  MassPi02:
-    title: m^{inv,rec}_{#gamma#gamma,2} - m_{#pi^{0}}
-    unit: MeV/c^{2}
-    range_x:
-      full:
-        - -400
-        - 400
-      zoom:
-        - -100
-        - 100
-  Delta_t_fit:
-    title: '#Deltat^{fit}'
+        - 0.0
+        - 20.0
+  Delta_t_MC:
+    title: '#Deltat_{MC}'
     unit: '#tau_{S}'
     range_x:
       full:
@@ -152,8 +94,8 @@ histograms_1d:
       zoom:
         - -100
         - 100
-  Delta_t_MC:
-    title: '#Deltat^{MC}'
+  Delta_t_fit:
+    title: '#Deltat_{fit}'
     unit: '#tau_{S}'
     range_x:
       full:
@@ -163,7 +105,7 @@ histograms_1d:
         - -100
         - 100
   Delta_t_rec:
-    title: '#Deltat^{rec}'
+    title: '#Deltat_{rec}'
     unit: '#tau_{S}'
     range_x:
       full:
@@ -172,3 +114,24 @@ histograms_1d:
       zoom:
         - -100
         - 100
+  Delta_t_fit_resolution:
+    title: '#Deltat_{fit} - #Deltat_{MC}'
+    unit: '#tau_{S}'
+    range_x:
+      full:
+        - -200
+        - 200
+      zoom:
+        - -15
+        - 15
+  Delta_t_rec_resolution:
+    title: '#Deltat_{rec} - #Deltat_{MC}'
+    unit: '#tau_{S}'  
+    range_x:
+      full:
+        - -200
+        - 200
+      zoom:
+        - -15
+        - 15
+  

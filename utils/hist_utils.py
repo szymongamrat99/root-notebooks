@@ -639,7 +639,7 @@ def _model_mc_sum(histograms, channels, scaling_factor, sum_name, hist_name):
 
 def fill_1D_histogram_simple(
     df, df_data, channels, model, cut_hash, total_cut,
-    variables=None, scaling_factor=1.0, compute_mc_sum=True
+    variables=None, scaling_factor=1.0, compute_mc_sum=True, division="channels"
 ):
   """Wypełnia histogramy 1D używając modelu {cut_hash: {mode: {variable: ...}}}.
 
@@ -670,8 +670,9 @@ def fill_1D_histogram_simple(
 
         n_bins, x_min, x_max = _histogram_axis(entry, variable)
         title = entry.get("title") or variable
+        filter = f"mctruth == {mctruth} && {total_cut}" if division == "channels" else f"{mctruth} && {total_cut}"
         histogram = df_draw.Filter(
-            f"mctruth == {mctruth} && {total_cut}"
+            filter
         ).Histo1D(
             (f"{variable}_{channel}_{mode}", f";{title};Counts",
              n_bins, x_min, x_max),
