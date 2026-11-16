@@ -306,6 +306,32 @@ int find_ks_kl_semileptonic(const int mctruth,
     return 26;
   return -1;
 }
+
+// ==========================================
+// 9. Find neutral clusters
+// ==========================================
+int neutral_clusters_num(const int nclu, const int ntcl, const ROOT::RVec<int>& asscl)
+{
+  Int_t neucluind = 0;
+  for (Int_t i = 1; i <= nclu; ++i)
+  { // Fortran: 1-based
+    Bool_t neuclu = true;
+    for (Int_t j = 1; j <= ntcl; ++j)
+    {
+      if (asscl[j - 1] == i)
+      { // C++: 0-based
+        neuclu = false;
+        break;
+      }
+    }
+    if (neuclu)
+    {
+      ++neucluind;
+    }
+  }
+
+  return neucluind;
+}
 """)
 
 

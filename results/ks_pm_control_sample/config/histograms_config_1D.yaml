@@ -5,119 +5,241 @@ histograms_1d:
     title: m^{inv}_{4#gamma} - m_{K^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 200
+      full:
+        - -400
+        - 200
+      zoom:
+        - -100
+        - 100
+    resolution: False
   KnerecSix_5:
     title: m^{inv}_{6#gamma} - m_{K^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 200
+      full:
+        - -400
+        - 200
+      zoom:
+        - -100
+        - 100
+    resolution: False
   Kchrec_5:
     title: m^{inv}_{+-} - m_{K^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -200
-    - 200
+      full:
+        - -200
+        - 200
+      zoom:
+        - -100
+        - 100
+    resolution: False
   Chi2SignalKinFit:
     title: '#chi^{2}_{+-00}'
     unit: ''
     range_x:
-    - 0
-    - 500
+      full:
+        - 0
+        - 500
+      zoom:
+        - 0
+        - 100
+    resolution: False
   Chi2NeutralKinFit:
     title: '#chi^{2}_{00}'
     unit: ''
     range_x:
-    - 0
-    - 500
+      full:
+        - 0
+        - 500
+      zoom:
+        - 0
+        - 100
+    resolution: False
   Chi2PMKinFit:
     title: '#chi^{2}_{+-}'
     unit: ''
     range_x:
-    - 0
-    - 100
+      full:
+        - 0
+        - 100
+      zoom:
+        - 0
+        - 50
+    resolution: False
   MassPi01Fit:
     title: m^{inv,fit,+-00}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 400
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
   MassPi02Fit:
     title: m^{inv,fit,+-00}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 400
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
   MassPi0NeutralFit1:
     title: m^{inv,fit,00}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 400
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
   MassPi0NeutralFit2:
     title: m^{inv,fit,00}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 400
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
   MassPi0PMFit1:
     title: m^{inv,fit,+-}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 400
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
   MassPi0PMFit2:
     title: m^{inv,fit,+-}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 400
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
   MassPi01:
     title: m^{inv,rec}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 400
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
   MassPi02:
     title: m^{inv,rec}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
     range_x:
-    - -400
-    - 400
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
   Delta_t_fit:
     title: '#Deltat^{fit}'
     unit: '#tau_{S}'
     range_x:
-    - -300
-    - 300
+      full:
+        - -300
+        - 300
+      zoom:
+        - -100
+        - 100
+    resolution: 1.5
   Delta_t_tri_fit:
     title: '#Deltat^{tri,fit}'
     unit: '#tau_{S}'
     range_x:
-    - -300
-    - 300
+      full:
+        - -300
+        - 300
+      zoom:
+        - -100
+        - 100
+    resolution: 1.5
   Delta_t_rec:
     title: '#Deltat^{rec}'
     unit: '#tau_{S}'
     range_x:
-    - -300
-    - 300
+      full:
+        - -300
+        - 300
+      zoom:
+        - -100
+        - 100
+    resolution: 1.5
   nclu:
     title: Total number of clusters
     unit: ''
     range_x:
-    - 0
-    - 20
+      full:
+        - 0
+        - 20
+      zoom:
+        - 0
+        - 10
+    resolution: False
   bestErrorSixGamma:
     title: '#Delta_{6}'
     unit: cm^{2}
     range_x:
-    - 0
-    - 10000
+      full:
+        - 0
+        - 10000
+      zoom:
+        - 0
+        - 1000
+    resolution: False
   neu_clu_num:
     title: Number of neutral clusters
     unit: ''
     range_x:
-    - 0
-    - 20
+      full:
+        - 0
+        - 20
+      zoom:
+        - 0
+        - 10
+    resolution: False
+  R_ch:
+    title: 'R_{+-,IP}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0
+        - 150
+      zoom:
+        - 0
+        - 10
+    resolution: False
+  R_ne:
+    title: 'R_{000,IP}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0
+        - 150
+      zoom:
+        - 0
+        - 10
+    resolution: False

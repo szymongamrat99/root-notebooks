@@ -3,6 +3,38 @@ truth_only_vars_1d:
 - Delta_t_fit_resolution
 - Delta_t_rec_resolution
 - Delta_t_MC
+- KchrecKS_5_resolution
+- KchrecKL_5_resolution
+- R_KS_resolution
+- R_KL_resolution
+- rho_KS_resolution
+- rho_KL_resolution
+- z_KS_resolution
+- z_KL_resolution
+- KchrecKS_px_resolution
+- KchrecKS_py_resolution
+- KchrecKS_pz_resolution
+- KchrecKS_energy_resolution
+- KchrecKL_px_resolution
+- KchrecKL_py_resolution
+- KchrecKL_pz_resolution
+- KchrecKL_energy_resolution
+- KchboostKS_px_resolution
+- KchboostKS_py_resolution
+- KchboostKS_pz_resolution
+- KchboostKS_energy_resolution
+- KchboostKL_px_resolution
+- KchboostKL_py_resolution
+- KchboostKL_pz_resolution
+- KchboostKL_energy_resolution
+- ip_KS_z_resolution
+- ip_KL_z_resolution
+- KchrecKS_x_resolution
+- KchrecKS_y_resolution
+- KchrecKS_z_resolution
+- KchrecKL_x_resolution
+- KchrecKL_y_resolution
+- KchrecKL_z_resolution
 histograms_1d:
   KchrecKS_5:
     title: m^{inv}_{+-,1} - m_{K^{0}}
@@ -14,6 +46,7 @@ histograms_1d:
       zoom:
         - -15
         - 15
+    resolution: False
   KchrecKL_5:
     title: m^{inv}_{+-,2} - m_{K^{0}}
     unit: MeV/c^{2}
@@ -24,6 +57,7 @@ histograms_1d:
       zoom:
         - -15
         - 15
+    resolution: False
   rho_KS:
     title: '#rho_{K_{1}}'
     unit: 'cm'
@@ -34,6 +68,7 @@ histograms_1d:
       zoom:
         - 0.0
         - 10.0
+    resolution: False
   rho_KL:
     title: '#rho_{K_{2}}'
     unit: 'cm'
@@ -44,6 +79,51 @@ histograms_1d:
       zoom:
         - 0.0
         - 10.0
+    resolution: False
+  z_KS:
+    title: 'z_{K_{1}} - z_{IP}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -150.0
+        - 150.0
+      zoom:
+        - -10.0
+        - 10.0
+    resolution: False
+  z_KL:
+    title: 'z_{K_{2}} - z_{IP}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -150.0
+        - 150.0
+      zoom:
+        - -10.0
+        - 10.0
+    resolution: False
+  R_KS:
+    title: 'R_{K_{1}}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0.0
+        - 150.0
+      zoom:
+        - 0.0
+        - 10.0
+    resolution: 0.6
+  R_KL:
+    title: 'R_{K_{2}}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0.0
+        - 150.0
+      zoom:
+        - 0.0
+        - 10.0
+    resolution: 0.6
   mag_KS_phiCM:
     title: '|#vec{p}^{CM}_{+,1} + #vec{p}^{CM}_{-,1}| - |p^{CM}_{K}|'
     unit: 'MeV/c'
@@ -54,6 +134,7 @@ histograms_1d:
       zoom:
         - -20.0
         - 20.0
+    resolution: False
   mag_KL_phiCM:
     title: '|#vec{p}^{CM}_{+,2} + #vec{p}^{CM}_{-,2}| - |p^{CM}_{K}|'
     unit: 'MeV/c'
@@ -64,6 +145,7 @@ histograms_1d:
       zoom:
         - -20.0
         - 20.0
+    resolution: False
   QmissKS:
     title: 'Q_{miss}^{K_{1}}'
     unit: 'MeV/c'
@@ -74,6 +156,7 @@ histograms_1d:
       zoom:
         - 0.0
         - 20.0
+    resolution: False
   QmissKL:
     title: 'Q_{miss}^{K_{2}}'
     unit: 'MeV/c'
@@ -84,6 +167,7 @@ histograms_1d:
       zoom:
         - 0.0
         - 20.0
+    resolution: False
   Delta_t_MC:
     title: '#Deltat_{MC}'
     unit: '#tau_{S}'
@@ -94,6 +178,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: 1.5
   Delta_t_fit:
     title: '#Deltat_{fit}'
     unit: '#tau_{S}'
@@ -104,6 +189,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: 1.5
   Delta_t_rec:
     title: '#Deltat_{rec}'
     unit: '#tau_{S}'
@@ -114,6 +200,18 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: 1.5
+  neu_clu_num:
+    title: 'Number of neutral clusters'
+    unit: '-'
+    range_x:
+      full:
+        - 0
+        - 20
+      zoom:
+        - 0
+        - 10
+    resolution: False
   Delta_t_fit_resolution:
     title: '#Deltat_{fit} - #Deltat_{MC}'
     unit: '#tau_{S}'
@@ -124,6 +222,7 @@ histograms_1d:
       zoom:
         - -15
         - 15
+    resolution: False
   Delta_t_rec_resolution:
     title: '#Deltat_{rec} - #Deltat_{MC}'
     unit: '#tau_{S}'  
@@ -134,4 +233,345 @@ histograms_1d:
       zoom:
         - -15
         - 15
-  
+    resolution: False
+  KchrecKS_5_resolution:
+    title: 'm^{inv}_{+-,1} - m_{K^{0}}'
+    unit: 'MeV/c^{2}'
+    range_x:
+      full:
+        - -200
+        - 200
+      zoom:
+        - -15
+        - 15
+    resolution: False
+  KchrecKL_5_resolution:
+    title: 'm^{inv}_{+-,2} - m_{K^{0}}'
+    unit: 'MeV/c^{2}'
+    range_x:
+      full:
+        - -200
+        - 200
+      zoom:
+        - -15
+        - 15
+    resolution: False
+  R_KS_resolution:
+    title: 'R_{K_{1}} - R_{K_{1}}^{MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -150.0
+        - 150.0
+      zoom:
+        - -10.0
+        - 10.0
+    resolution: False
+  R_KL_resolution:
+    title: 'R_{K_{2}} - R_{K_{2}}^{MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -150.0
+        - 150.0
+      zoom:
+        - -10.0
+        - 10.0
+    resolution: False
+  rho_KS_resolution:
+    title: '#rho_{K_{1}} - #rho_{K_{1}}^{MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -150.0
+        - 150.0
+      zoom:
+        - -10.0
+        - 10.0
+    resolution: False
+  rho_KL_resolution:
+    title: '#rho_{K_{2}} - #rho_{K_{2}}^{MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -150.0
+        - 150.0
+      zoom:
+        - -10.0
+        - 10.0
+    resolution: False
+  z_KS_resolution:
+    title: '(z_{K_{1}} - z_{IP}) - (z_{K_{1}} - z_{IP})^{MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -150.0
+        - 150.0
+      zoom:
+        - -10.0
+        - 10.0
+    resolution: False
+  z_KL_resolution:
+    title: '(z_{K_{2}} - z_{IP}) - (z_{K_{2}} - z_{IP})^{MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -150.0
+        - 150.0
+      zoom:
+        - -10.0
+        - 10.0
+    resolution: False
+  ip_KS_vs_KL_x:
+    title: 'x_{IP}^{KS} - x_{IP}^{KL}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  ip_KS_vs_KL_y:
+    title: 'y_{IP}^{KS} - y_{IP}^{KL}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  ip_KS_vs_KL_z:
+    title: 'z_{IP}^{KS} - z_{IP}^{KL}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  KchrecKS_px_resolution:
+    title: 'p_{x}^{K_{1}} - p_{x}^{K_{1}, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchrecKS_py_resolution:
+    title: 'p_{y}^{K_{1}} - p_{y}^{K_{1}, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchrecKS_pz_resolution:
+    title: 'p_{z}^{K_{1}} - p_{z}^{K_{1}, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchrecKL_px_resolution:
+    title: 'p_{x}^{K_{2}} - p_{x}^{K_{2}, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchrecKL_py_resolution:
+    title: 'p_{y}^{K_{2}} - p_{y}^{K_{2}, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchrecKL_pz_resolution:
+    title: 'p_{z}^{K_{2}} - p_{z}^{K_{2}, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchboostKS_px_resolution:
+    title: 'p_{x}^{K_{1}, boost} - p_{x}^{K_{1}, boost, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchboostKS_py_resolution:
+    title: 'p_{y}^{K_{1}, boost} - p_{y}^{K_{1}, boost, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchboostKS_pz_resolution:
+    title: 'p_{z}^{K_{1}, boost} - p_{z}^{K_{1}, boost, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchboostKL_px_resolution:
+    title: 'p_{x}^{K_{2}, boost} - p_{x}^{K_{2}, boost, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchboostKL_py_resolution:
+    title: 'p_{y}^{K_{2}, boost} - p_{y}^{K_{2}, boost, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  KchboostKL_pz_resolution:
+    title: 'p_{z}^{K_{2}, boost} - p_{z}^{K_{2}, boost, MC}'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - -200.0
+        - 200.0
+      zoom:
+        - -20.0
+        - 20.0
+    resolution: False
+  ip_KS_z_resolution:
+    title: 'z^{IP, K_{1}} - z^{IP, MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  ip_KL_z_resolution:
+    title: 'z^{IP, K_{2}} - z^{IP, MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  KchrecKS_x_resolution:
+    title: 'x^{K_{1}} - x^{K_{1}, MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  KchrecKS_y_resolution:
+    title: 'y^{K_{1}} - y^{K_{1}, MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  KchrecKS_z_resolution:
+    title: 'z^{K_{1}} - z^{K_{1}, MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  KchrecKL_x_resolution:
+    title: 'x^{K_{2}} - x^{K_{2}, MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  KchrecKL_y_resolution:
+    title: 'y^{K_{2}} - y^{K_{2}, MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
+  KchrecKL_z_resolution:
+    title: 'z^{K_{2}} - z^{K_{2}, MC}'
+    unit: 'cm'
+    range_x:
+      full:
+        - -10.0
+        - 10.0
+      zoom:
+        - -2.0
+        - 2.0
+    resolution: False
