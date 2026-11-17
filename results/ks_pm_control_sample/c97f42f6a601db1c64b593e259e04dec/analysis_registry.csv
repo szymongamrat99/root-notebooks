@@ -1,6 +1,8 @@
 hash,filenames,cuts_description
-nocuts,tag_kl_000_1D_variables.root,(brak cięć)
-519c0397,tag_kl_000_1D_variables.root,neu_clu_num >= 6
-66563976,tag_kl_000_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0
-09acde96,tag_kl_000_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120
-38d0455f,tag_kl_000_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) <= 3 * 0.8090
+nocuts,tag_kl_000_1D_variables.root;tag_kl_000_chann_div_1D_variables.root,(brak cięć)
+519c0397,tag_kl_000_1D_variables.root;tag_kl_000_chann_div_1D_variables.root,neu_clu_num >= 6
+66563976,tag_kl_000_1D_variables.root;tag_kl_000_chann_div_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0
+09acde96,tag_kl_000_1D_variables.root;tag_kl_000_chann_div_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120
+38d0455f,tag_kl_000_1D_variables.root;tag_kl_000_chann_div_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) <= 3 * 0.8090
+ee5a338e,tag_kl_000_1D_variables.root;tag_kl_000_chann_div_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) <= 3 * 0.8090 && (rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0 && rho_pm_closest > 1.0) || !(rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0)
+03e630a8,tag_kl_000_1D_variables.root;tag_kl_000_chann_div_1D_variables.root,neu_clu_num >= 6 && bestErrorSixGamma < 2000.0 && abs(Knerec_5 + 153.0798) < 120 && abs(Kchrec_5) <= 3 * 0.8090 && (rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0 && rho_pm_closest > 1.0) || !(rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0) && (rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45 && (abs(cos_trk1_K) < 0.8 || abs(cos_trk2_K) < 0.8) ) || !(rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45)

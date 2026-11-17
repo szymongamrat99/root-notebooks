@@ -1,6 +1,3 @@
-/workspace/root_notebooks/results/kl_pm_control_sample/scripts
-/workspace/root_notebooks
-['/workspace/root_notebooks/results/kl_pm_control_sample/scripts', '/opt/root/lib', '/usr/lib64/python39.zip', '/usr/lib64/python3.9', '/usr/lib64/python3.9/lib-dynload', '/home/jupyteruser/.local/lib/python3.9/site-packages', '/usr/lib64/python3.9/site-packages', '/usr/lib/python3.9/site-packages', '/workspace/root_notebooks/results', '/workspace/root_notebooks']
 {0: 'Data', 1: 'Signal', 2: 'Regeneration', 3: 'Omega', 4: '3pi0', 5: 'Semileptonic', 6: 'Other', 7: 'pi+pi-pi+pi-', 8: 'MC sum'}
 {306: 'CHARGED_KAON_MASS_PRE', 304: 'LESS_THAN_FOUR_CLUSTERS_WITH_GOOD_ENERGY', 301: 'LESS_THAN_FOUR_NEUTRAL_CLUSTERS', 302: 'LESS_THAN_SIX_NEUTRAL_CLUSTERS', 314: 'NEU_KIN_FIT', 312: 'NOT_SINGLE_VTX_EVENT', 305: 'NO_TWO_VTX_WITH_TWO_TRACKS', 308: 'NO_VALID_SIX_GAMMA_SOLUTION', 303: 'NO_VTX_WITH_OPPOSITE_TRACKS', 300: 'NO_VTX_WITH_TWO_TRACKS', 311: 'OMEGA_KIN_FIT', 313: 'PM_KIN_FIT', 310: 'SIGNAL_KIN_FIT', 309: 'TRIANGLE_REC', 307: 'TRILATERATION_KIN_FIT'}
 Przetestowano 353 plików. Poprawnych: 351, Odrzuconych: 2
@@ -9,3 +6,26 @@ Lumi factor: 1.1311
 ['abs(KchrecKS_5) <= 5.0', 'abs(mag_KS_phiCM) <= 8.0', 'abs(KchrecKL_5) <= 3 * 1.1', '(rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0 && rho_pm_closest > 1.0) || !(rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0)', '(rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45 && (abs(cos_trk1_K) < 0.8 || abs(cos_trk2_K) < 0.8) ) || !(rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45)']
 
 [INFO] Przetwarzanie kroku: 00_no_cuts (liczba aktywnych cięć: 0)
+[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+
+[INFO] Przetwarzanie kroku: step_01 (liczba aktywnych cięć: 1)
+[INFO] Zaktualizowano wpis dla hashu 21f528cb w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 21f528cb w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+
+[INFO] Przetwarzanie kroku: step_02 (liczba aktywnych cięć: 2)
+[INFO] Zaktualizowano wpis dla hashu eff9a201 w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu eff9a201 w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+
+[INFO] Przetwarzanie kroku: step_03 (liczba aktywnych cięć: 3)
+[INFO] Zaktualizowano wpis dla hashu 0920bc7b w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 0920bc7b w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+
+[INFO] Przetwarzanie kroku: step_04 (liczba aktywnych cięć: 4)
+[INFO] Zaktualizowano wpis dla hashu ed9f9783 w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu ed9f9783 w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+
+[INFO] Przetwarzanie kroku: step_05 (liczba aktywnych cięć: 5)
+[INFO] Zaktualizowano wpis dla hashu 11f92bec w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 11f92bec w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+[INFO] Pętla sekwencyjnego nakładania cięć została pomyślnie zakończona!

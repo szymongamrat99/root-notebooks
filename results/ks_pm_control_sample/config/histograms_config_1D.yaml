@@ -231,7 +231,7 @@ histograms_1d:
       zoom:
         - 0
         - 10
-    resolution: False
+    resolution: 0.6
   R_ne:
     title: 'R_{000,IP}'
     unit: 'cm'
@@ -242,4 +242,4 @@ histograms_1d:
       zoom:
         - 0
         - 10
-    resolution: False
+    resolution: 0.6
