@@ -36,6 +36,39 @@ truth_only_vars_1d:
 - KchrecKL_y_resolution
 - KchrecKL_z_resolution
 histograms_1d:
+  Emiss:
+    title: 'Missing energy'
+    unit: 'MeV'
+    range_x:
+      full:
+        - -200
+        - 200
+      zoom:
+        - -20
+        - 20
+    resolution: 1.0
+  Pmiss:
+    title: 'Missing momentum'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - 0.0
+        - 500.0
+      zoom:
+        - 0.0
+        - 20.0
+    resolution: 1.0
+  MissDiff:
+    title: 'Missing invariant mass'
+    unit: 'MeV/c^{2}'
+    range_x:
+      full:
+        - 0
+        - 200
+      zoom:
+        - 0
+        - 20
+    resolution: 1.0
   KchrecKS_5:
     title: m^{inv}_{+-,1} - m_{K^{0}}
     unit: MeV/c^{2}

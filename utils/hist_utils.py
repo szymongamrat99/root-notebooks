@@ -670,7 +670,14 @@ def fill_1D_histogram_simple(
 
         n_bins, x_min, x_max = _histogram_axis(entry, variable)
         title = entry.get("title") or variable
-        filter = f"mctruth == {mctruth} && {total_cut}" if division == "channels" else f"{mctruth} && {total_cut}"
+
+        if division == "channels":
+          filter = f"mctruth == {mctruth} && {total_cut}"
+        elif division == "other_division":
+          filter = f"otherFlag == {mctruth} && {total_cut}"
+        else:
+          filter = f"{mctruth} && {total_cut}"
+          
         histogram = df_draw.Filter(
             filter
         ).Histo1D(
