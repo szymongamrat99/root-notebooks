@@ -1,0 +1,63 @@
+truth_mctruth_id_2d: 7
+truth_only_vars_2d: ["Delta_t_rec_Delta_t_MC", "Delta_t_MC_Pmiss", "Delta_t_MC_Delta_t_rec_resolution", "Delta_t_MC_Delta_t_fit_resolution"]
+histograms_2d:
+  Delta_t_rec_Delta_t_MC:
+    x: Delta_t_rec
+    y: Delta_t_MC
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  KchrecKS_5_KchrecKL_5:
+    x: KchrecKS_5
+    y: KchrecKL_5
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Emiss_Pmiss:
+    x: Emiss
+    y: Pmiss
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  rho_pm_closest_rho_00_closest:
+    x: rho_pm_closest
+    y: rho_00_closest
+    fiducial_volume: omega
+    modes:
+      full: {x: full, y: full}
+  cos_trk1_K_cos_trk2_K:
+    x: cos_trk1_K
+    y: cos_trk2_K
+    fiducial_volume: close_tracks
+    modes:
+      full: {x: full, y: full}
+  Delta_t_fit_Pmiss:
+    x: Delta_t_fit
+    y: Pmiss
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Delta_t_rec_Pmiss:
+    x: Delta_t_rec
+    y: Pmiss
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Delta_t_MC_Pmiss:
+    x: Delta_t_MC
+    y: Pmiss
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Delta_t_MC_Delta_t_rec_resolution:
+    x: Delta_t_MC
+    y: Delta_t_rec_resolution
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Delta_t_MC_Delta_t_fit_resolution:
+    x: Delta_t_MC
+    y: Delta_t_fit_resolution
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}

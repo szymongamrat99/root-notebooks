@@ -12,27 +12,24 @@ try:
 except NameError:
     script_dir = Path.cwd()
 
-grandparent_dir = script_dir.parent.parent
+grandparent_dir = script_dir.parent.parent.parent
 sys.path.append(str(grandparent_dir))
 
 import ROOT
 import numpy as np
 
-current_dir = Path(__file__).resolve().parent
-target_dir = current_dir.parent.parent.parent
-sys.path.append(str(target_dir))
-
 import utils.physics_utils as PU
-from utils.general_utils import get_valid_files_fast, log_analysis_run, build_cut_expression
+from utils.general_utils import get_valid_files_fast, log_analysis_run, build_cut_expression, load_2d_config, load_fiducial_filters
 from utils.hist_utils import (
     split_variable_group,
     fill_1d_histograms,
     fill_2d_histograms,
+    fill_2D_histogram_simple,
     draw_and_save_1d_histograms,
     draw_and_save_2d_histograms,
 )
 
-ROOT.EnableImplicitMT(45)
+ROOT.EnableImplicitMT(80)
 ROOT.gStyle.SetPalette(ROOT.kRainbow)
 
 ROOT.gSystem.Load("/workspace/KLOE/Include/Codes/libLibRec.so")
@@ -55,8 +52,11 @@ ROOT.gInterpreter.Declare('#include "/workspace/KLOE/src/Subanalysis/CPFit/inc/c
 ROOT.KLOE.setGlobalStyle()
 
 channName = {int(k): str(v) for k, v in ROOT.KLOE.channName}
+otherChannName = {int(k): str(v) for k, v in ROOT.KLOE.otherChannName}
 channTitle = {str(k): str(v) for k, v in ROOT.KLOE.channTitle}
+otherChannTitle = {str(k): str(v) for k, v in ROOT.KLOE.otherChannTitle}
 channColor = {str(k): int(v) for k, v in ROOT.KLOE.channColor}
+otherChannColor = {str(k): int(v) for k, v in ROOT.KLOE.otherChannColor}
 
 # Enrichment for control samples
 channTitle["hasKsPM"] = "Event includes K_{S}#rightarrow#pi^{+}#pi^{-}"
@@ -233,6 +233,13 @@ df_data = (
     .Filter("mcflag == 0 && mctruth != -1")
 )
 
+################## ADDITIONAL BRANCHES FOR SAMPLE CLEARING ########################################
+df_data = (
+  df_data.Define("Emiss", "Broots - KchrecKS[3] - KchrecKL[3]")
+  .Define("Pmiss", "sqrt(pow(Bpx - KchrecKS[0] - KchrecKL[0],2) + pow(Bpy - KchrecKS[1] - KchrecKL[1],2) + pow(Bpz - KchrecKS[2] - KchrecKL[2],2))")
+  .Define("MissDiff", "sqrt(pow(Emiss,2) - pow(Pmiss,2))")
+)
+
 # --- PRZETWARZANIE MONTE CARLO (MC) ---
 df = (
     df.Define("KchrecKS_5", f"KchrecKS[5] - {mK0}")
@@ -343,6 +350,12 @@ df = (
     .Filter("mcflag == 1 && mctruth != -1")
 )
 
+df = (
+  df.Define("Emiss", "Broots - KchrecKS[3] - KchrecKL[3]")
+  .Define("Pmiss", "sqrt(pow(Bpx - KchrecKS[0] - KchrecKL[0],2) + pow(Bpy - KchrecKS[1] - KchrecKL[1],2) + pow(Bpz - KchrecKS[2] - KchrecKL[2],2))")
+  .Define("MissDiff", "sqrt(pow(Emiss,2) - pow(Pmiss,2))")
+)
+
 # df Signal
 df_Signal = df.Filter(
     f"mcflag == 1 && mctruth == 7"
@@ -381,6 +394,14 @@ with open(f"{current_result_dir}/analysis_config.json", "w") as f:
 hist_config_file_path = f"{base_path}/{analysis_dir}/config/histograms_config_1D.yaml"
 with open(hist_config_file_path, "r") as f:
     hist_config = yaml.safe_load(f)
+
+hist_config_2D_file_path = f"{base_path}/{analysis_dir}/config/histograms_config_2D.yaml"
+with open(hist_config_2D_file_path, "r") as f:
+    hist_config_2D = yaml.safe_load(f)
+variables_2D, modes_2D, TRUTH_ONLY_VARS_2D, TRUTH_MCTRUTH_ID_2D = load_2d_config(
+    hist_config_2D, hist_config
+)
+filters_1D, filters_2D = load_fiducial_filters(hist_config, hist_config_2D)
 ######################################################################################
 
 ############ LOAD VARIABLES RESOLUTIONS PER CUT HASH #################################
@@ -492,7 +513,8 @@ fiducial_volume_close_tracks = "rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45"
 
 cut_list = ["abs(KchrecKL_5) <= 3 * 1.1",
             f"({fiducial_volume_omega} && rho_pm_closest > 1.0) || !({fiducial_volume_omega})",
-            f"({fiducial_volume_close_tracks} && (abs(cos_trk1_K) < 0.8 || abs(cos_trk2_K) < 0.8) ) || !({fiducial_volume_close_tracks})"
+            f"({fiducial_volume_close_tracks} && (abs(cos_trk1_K) < 0.8 || abs(cos_trk2_K) < 0.8) ) || !({fiducial_volume_close_tracks})",
+            # "Pmiss <= 10"
             ]
 
 full_cut_list = tag_cut_list + cut_list
@@ -516,7 +538,7 @@ for division in division_list:
   # --- GŁÓWNA PĘTLA BUDUJĄCA CIĘCIA KROK PO KROKU ---
   # Możesz zacząć od indeksu -1 (czyli stan "beż żadnych cięć" / nocuts)
   # lub od i = 0 (jeśli chcesz zacząć od razu od pierwszego cięcia).
-  for i in range(-1, len(full_cut_list)):
+  for i in range(len(full_cut_list) - 1, len(full_cut_list)):
 
     # Wycinamy podzbiór cięć od początku do bieżącego kroku
     if i == -1:
@@ -591,6 +613,7 @@ for division in division_list:
         cut_hash,
         total_cut,
         variables=vars_1D_main,
+        fiducial_filters=filters_1D,
         scaling_factor=scaling_factor,
         compute_mc_sum=True,
         division=division
@@ -610,6 +633,7 @@ for division in division_list:
           cut_hash,
           total_cut,
           variables=vars_1D_truth,
+          fiducial_filters=filters_1D,
           compute_mc_sum=False,
       )
 
@@ -627,6 +651,7 @@ for division in division_list:
         cuts_json_str,
         current_cut_list,
         root_file_name,
+        fiducial_filters=filters_1D,
     )
 
     if vars_1D_truth:
@@ -644,7 +669,79 @@ for division in division_list:
           cuts_json_str,
           current_cut_list,
           root_file_name_truth,
+          fiducial_filters=filters_1D,
       )
+
+    # Histogramy 2D: osobne pliki ROOT, każdy kanał (Data, MC, MC sum) osobno.
+    # Pary z truth_only_vars_2d (klucz "x_y") idą tylko dla kanału truth.
+    truth_keys_2D = set(TRUTH_ONLY_VARS_2D)
+    vars_2D_main = [v for v in variables_2D if "_".join(v) not in truth_keys_2D]
+    vars_2D_truth = [v for v in variables_2D if "_".join(v) in truth_keys_2D]
+
+    def modes_2D_for(pairs):
+      return {
+          mode: {}
+          for v in pairs
+          for mode in modes_2D["_".join(v)]
+      }
+
+    hist_2D = fill_2D_histogram_simple(
+        df,
+        df_data,
+        mc_flags,
+        histo1Dmodel,
+        cut_hash,
+        vars_2D_main,
+        total_cut,
+        scaling_factor=scaling_factor,
+        compute_mc_sum=division != "other_division",
+        modes_2d=modes_2D,
+        fiducial_filters=filters_2D,
+        division=division,
+    )
+    hist_2D, canvas_2D = draw_and_save_2d_histograms(
+        hist_2D,
+        vars_2D_main,
+        modes_2D_for(vars_2D_main),
+        step_result_dir,
+        cut_hash,
+        cuts_json_str,
+        current_cut_list,
+        f"{file_base_name}_2D_variables.root",
+        fiducial_filters=filters_2D,
+    )
+    for canva in canvas_2D:
+      canva.Close()
+
+    if vars_2D_truth and division != "other_division":
+      truth_channels_2D = {
+          TRUTH_MCTRUTH_ID_2D: channName[TRUTH_MCTRUTH_ID_2D]
+      }
+      hist_2D_truth = fill_2D_histogram_simple(
+          df,
+          df_data,
+          truth_channels_2D,
+          histo1Dmodel,
+          cut_hash,
+          vars_2D_truth,
+          total_cut,
+          compute_mc_sum=False,
+          modes_2d=modes_2D,
+          fiducial_filters=filters_2D,
+      )
+      hist_2D_truth, canvas_2D_truth = draw_and_save_2d_histograms(
+          hist_2D_truth,
+          vars_2D_truth,
+          modes_2D_for(vars_2D_truth),
+          step_result_dir,
+          cut_hash,
+          cuts_json_str,
+          current_cut_list,
+          f"{file_base_name}_2D_truth_variables.root",
+          fiducial_filters=filters_2D,
+      )
+      for canva in canvas_2D_truth:
+        canva.Close()
 
     # Sprzątanie obiektów Canvas z pamięci ROOT-a
     for canva in canvas:

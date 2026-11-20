@@ -5,27 +5,9 @@ Przetestowano 420 plików. Poprawnych: 420, Odrzuconych: 0
 Lumi factor: 1.1311
 ['abs(KchrecKS_5) <= 5.0', 'abs(mag_KS_phiCM) <= 8.0', 'abs(KchrecKL_5) <= 3 * 1.1', '(rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0 && rho_pm_closest > 1.0) || !(rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0)', '(rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45 && (abs(cos_trk1_K) < 0.8 || abs(cos_trk2_K) < 0.8) ) || !(rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45)']
 
-[INFO] Przetwarzanie kroku: 00_no_cuts (liczba aktywnych cięć: 0)
-[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-
-[INFO] Przetwarzanie kroku: step_01 (liczba aktywnych cięć: 1)
-[INFO] Zaktualizowano wpis dla hashu 21f528cb w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-[INFO] Zaktualizowano wpis dla hashu 21f528cb w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-
-[INFO] Przetwarzanie kroku: step_02 (liczba aktywnych cięć: 2)
-[INFO] Zaktualizowano wpis dla hashu eff9a201 w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-[INFO] Zaktualizowano wpis dla hashu eff9a201 w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-
-[INFO] Przetwarzanie kroku: step_03 (liczba aktywnych cięć: 3)
-[INFO] Zaktualizowano wpis dla hashu 0920bc7b w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-[INFO] Zaktualizowano wpis dla hashu 0920bc7b w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-
-[INFO] Przetwarzanie kroku: step_04 (liczba aktywnych cięć: 4)
-[INFO] Zaktualizowano wpis dla hashu ed9f9783 w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-[INFO] Zaktualizowano wpis dla hashu ed9f9783 w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
-
 [INFO] Przetwarzanie kroku: step_05 (liczba aktywnych cięć: 5)
+[INFO] Zaktualizowano wpis dla hashu 11f92bec w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 11f92bec w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
 [INFO] Zaktualizowano wpis dla hashu 11f92bec w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
 [INFO] Zaktualizowano wpis dla hashu 11f92bec w rejestrze w /workspace/root_notebooks/results/kl_pm_control_sample/7b6c187f3e4b0390d51437281fd4292b/analysis_registry.csv
 [INFO] Pętla sekwencyjnego nakładania cięć została pomyślnie zakończona!

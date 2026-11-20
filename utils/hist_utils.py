@@ -253,7 +253,8 @@ def fill_2d_histograms_flags(df, df_data, mc_flags, variables_2d, titles_2d, mod
 
 
 def compute_channel_integrals_and_purity(hist_dict, modes,
-                                          signal_channel="Signal", mc_sum_channel="MC sum"):
+                                          signal_channel="Signal", mc_sum_channel="MC sum",
+                                          exclude_vars=()):
   """Liczy ważoną liczbę zdarzeń (całkę) na kanał oraz czystość próbki po cięciach.
 
   Całka liczona jest TYLKO z jednego histogramu (pierwszy klucz hist_dict,
@@ -272,12 +273,18 @@ def compute_channel_integrals_and_purity(hist_dict, modes,
     którykolwiek z nich nie występuje w hist_dict (np. dla zmiennych
     truth-only, gdzie nie liczy się "MC sum"), czystość nie jest zwracana.
 
+  exclude_vars: zmienne rysowane w fiducial volume (z dodatkowym filtrem) - nie
+    nadają się do liczenia całek próbki, więc są pomijane (o ile zostaje
+    jakakolwiek inna zmienna).
+
   Zwraca (channel_integrals: {chann: float}, purity: float | None).
   """
   if not hist_dict:
     return {}, None
 
-  first_var = next(iter(hist_dict))
+  first_var = next(
+      (var for var in hist_dict if var not in exclude_vars), next(iter(hist_dict))
+  )
   first_mode = next(iter(modes))
   channels = hist_dict[first_var]
 
@@ -300,9 +307,10 @@ def compute_channel_integrals_and_purity(hist_dict, modes,
   return channel_integrals, purity
 
 
-def _write_channel_summary(hash_dir, hist_dict, modes):
+def _write_channel_summary(hash_dir, hist_dict, modes, exclude_vars=()):
   """Zapisuje ChannelIntegrals (JSON) i - jeśli policzalne - Purity do hash_dir."""
-  channel_integrals, purity = compute_channel_integrals_and_purity(hist_dict, modes)
+  channel_integrals, purity = compute_channel_integrals_and_purity(
+      hist_dict, modes, exclude_vars=exclude_vars)
 
   ROOT.TNamed("ChannelIntegrals", json.dumps(channel_integrals, indent=2)).Write(
       "ChannelIntegrals", ROOT.TObject.kOverwrite
@@ -313,7 +321,7 @@ def _write_channel_summary(hash_dir, hist_dict, modes):
 
 def draw_and_save_1d_histograms(hist_1D, variables, modes, channColor, channTitle,
                                  current_result_dir, cut_hash, cuts_json_str, cut_list,
-                                 root_file_name, logy_states=(False, True)):
+                                 root_file_name, logy_states=(False, True), fiducial_filters=None):
   """Rysuje, zapisuje do pliku ROOT/PDF i loguje przebieg dla histogramów 1D.
 
   Kolejność rysowanych kanałów wynika z kluczy hist_1D (np. ["Data", MC..., "MC sum"]
@@ -347,7 +355,7 @@ def draw_and_save_1d_histograms(hist_1D, variables, modes, channColor, channTitl
   ROOT.TNamed("CutList", cuts_json_str).Write("CutList", ROOT.TObject.kOverwrite)
   ROOT.TNamed("CutHash", cut_hash).Write("CutHash", ROOT.TObject.kOverwrite)
 
-  _write_channel_summary(hash_dir, hist_1D, modes)
+  _write_channel_summary(hash_dir, hist_1D, modes, exclude_vars=fiducial_filters or {})
 
   ### Get Max Channel per mode per var for scaling purposes
   max_per_mode = {var: {mode: 0 for mode in mode_list} for var in variables}
@@ -425,8 +433,11 @@ def draw_and_save_1d_histograms(hist_1D, variables, modes, channColor, channTitl
 
 
 def draw_and_save_2d_histograms(hist_2D, variables_2d, modes, current_result_dir, cut_hash,
-                                 cuts_json_str, cut_list, root_file_name):
+                                 cuts_json_str, cut_list, root_file_name, fiducial_filters=None):
   """Rysuje, zapisuje do pliku ROOT/PDF i loguje przebieg dla histogramów 2D.
+
+  fiducial_filters: {var_key: wyrażenie} - pary rysowane w fiducial volume
+  (pomijane przy liczeniu całek próbki).
 
   Kolejność rysowanych kanałów wynika z kluczy hist_2D - tak samo jak
   w draw_and_save_1d_histograms.
@@ -455,7 +466,7 @@ def draw_and_save_2d_histograms(hist_2D, variables_2d, modes, current_result_dir
   ROOT.TNamed("CutList", cuts_json_str).Write("CutList", ROOT.TObject.kOverwrite)
   ROOT.TNamed("CutHash", cut_hash).Write("CutHash", ROOT.TObject.kOverwrite)
 
-  _write_channel_summary(hash_dir, hist_2D, modes)
+  _write_channel_summary(hash_dir, hist_2D, modes, exclude_vars=fiducial_filters or {})
 
   for i, varset in enumerate(variables_2d):
     var_key = "_".join(varset)
@@ -464,11 +475,15 @@ def draw_and_save_2d_histograms(hist_2D, variables_2d, modes, current_result_dir
       var_dir = hash_dir.mkdir(var_key)
     var_dir.cd()
 
+    var_modes = [
+        mode for mode in mode_list
+        if all(mode in per_mode for per_mode in hist_2D[var_key].values())
+    ]
     for chann in draw_channels:
       canva.append(ROOT.TCanvas(f"c2d_{i}_{chann}", "2D Histograms", 800, 400))
-      canva[-1].Divide(len(mode_list), 1)
+      canva[-1].Divide(len(var_modes), 1)
 
-      for j, mode in enumerate(mode_list):
+      for j, mode in enumerate(var_modes):
         canva[-1].cd(j + 1)
         h_curr = hist_2D[var_key][chann][mode]
         h_curr.Draw("COLZ")
@@ -639,14 +654,18 @@ def _model_mc_sum(histograms, channels, scaling_factor, sum_name, hist_name):
 
 def fill_1D_histogram_simple(
     df, df_data, channels, model, cut_hash, total_cut,
-    variables=None, scaling_factor=1.0, compute_mc_sum=True, division="channels"
+    variables=None, scaling_factor=1.0, compute_mc_sum=True, division="channels",
+    fiducial_filters=None
 ):
   """Wypełnia histogramy 1D używając modelu {cut_hash: {mode: {variable: ...}}}.
 
   `channels` ma format {mctruth: channel_name}; kanał "Data" korzysta z df_data.
   Jeśli `variables` jest pominięte, funkcja bierze zmienne bezpośrednio z modelu.
+  `fiducial_filters` ({variable: wyrażenie}) dokłada do filtru wskazanych zmiennych
+  dodatkowe cięcie (fiducial volume).
   Zwraca {variable: {channel: {mode: histogram}}}.
   """
+  fiducial_filters = fiducial_filters or {}
   cut_model = _histogram_model_for_cut(model, cut_hash)
   variables = _model_variables(cut_model) if variables is None else list(variables)
   unknown_variables = set(variables) - set(_model_variables(cut_model))
@@ -677,7 +696,9 @@ def fill_1D_histogram_simple(
           filter = f"otherFlag == {mctruth} && {total_cut}"
         else:
           filter = f"{mctruth} && {total_cut}"
-          
+        if variable in fiducial_filters:
+          filter = f"({filter}) && ({fiducial_filters[variable]})"
+
         histogram = df_draw.Filter(
             filter
         ).Histo1D(
@@ -714,14 +735,19 @@ def fill_1D_histogram_simple(
 
 def fill_2D_histogram_simple(
     df, df_data, channels, model, cut_hash, variables_2d, total_cut,
-    scaling_factor=1.0, compute_mc_sum=True
+    scaling_factor=1.0, compute_mc_sum=True, modes_2d=None, division="channels",
+    fiducial_filters=None
 ):
   """Wypełnia histogramy 2D, używając osi zmiennych z modelu 1D.
 
   `variables_2d` to lista par (x, y). Dla każdej osi liczba binów i zakres
-  pochodzą z wpisu zmiennej w modelu wskazanego przez `cut_hash` i `mode`.
+  pochodzą z wpisu zmiennej w modelu wskazanego przez `cut_hash` i tryb osi.
+  `modes_2d` ({"x_y": {mode: (mode_x, mode_y)}}) pozwala użyć różnych trybów
+  osi; bez niego tryb 2D = tryb obu osi. `division` jak w fill_1D_histogram_simple.
+  `fiducial_filters` ({"x_y": wyrażenie}) dokłada dodatkowe cięcie (fiducial volume).
   Zwraca {"x_y": {channel: {mode: histogram}}}.
   """
+  fiducial_filters = fiducial_filters or {}
   cut_model = _histogram_model_for_cut(model, cut_hash)
   available_variables = set(_model_variables(cut_model))
   hist_2D = {}
@@ -743,9 +769,13 @@ def fill_2D_histogram_simple(
 
       df_draw = df_data if channel == "Data" else df
       hist_2D[var_key][channel] = {}
-      for mode, variables_by_mode in cut_model.items():
-        entry_x = variables_by_mode.get(var_x)
-        entry_y = variables_by_mode.get(var_y)
+      if modes_2d is not None:
+        mode_axes = modes_2d.get(var_key, {})
+      else:
+        mode_axes = {mode: (mode, mode) for mode in cut_model}
+      for mode, (mode_x, mode_y) in mode_axes.items():
+        entry_x = cut_model.get(mode_x, {}).get(var_x)
+        entry_y = cut_model.get(mode_y, {}).get(var_y)
         if entry_x is None or entry_y is None:
           continue
 
@@ -753,9 +783,15 @@ def fill_2D_histogram_simple(
         n_y, y_min, y_max = _histogram_axis(entry_y, var_y)
         title_x = entry_x.get("title") or var_x
         title_y = entry_y.get("title") or var_y
-        histogram = df_draw.Filter(
-            f"mctruth == {mctruth} && {total_cut}"
-        ).Histo2D(
+        if division == "channels":
+          flt = f"mctruth == {mctruth} && {total_cut}"
+        elif division == "other_division":
+          flt = f"otherFlag == {mctruth} && {total_cut}"
+        else:
+          flt = f"{mctruth} && {total_cut}"
+        if var_key in fiducial_filters:
+          flt = f"({flt}) && ({fiducial_filters[var_key]})"
+        histogram = df_draw.Filter(flt).Histo2D(
             (f"{var_key}_{channel}_{mode}",
              f";{title_x};{title_y}",
              n_x, x_min, x_max, n_y, y_min, y_max),
@@ -774,7 +810,8 @@ def fill_2D_histogram_simple(
   if compute_mc_sum and mc_channels:
     for var_key, per_channel in hist_2D.items():
       per_channel["MC sum"] = {}
-      for mode in cut_model:
+      for mode in dict.fromkeys(
+          m for channel in mc_channels for m in per_channel.get(channel, {})):
         if any(mode not in per_channel.get(channel, {}) for channel in mc_channels):
           continue
         summed = _model_mc_sum(

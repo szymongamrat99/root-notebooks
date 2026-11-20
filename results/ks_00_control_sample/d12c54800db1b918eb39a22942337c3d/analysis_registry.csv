@@ -1,0 +1,9 @@
+hash,filenames,cuts_description
+nocuts,tag_kl_Semileptonic_1D_variables.root;tag_kl_Semileptonic_chann_div_1D_variables.root,(brak cięć)
+824a759a,tag_kl_Semileptonic_1D_variables.root;tag_kl_Semileptonic_chann_div_1D_variables.root,Chi2PMKinFit > 10.0
+367d1fa3,tag_kl_Semileptonic_1D_variables.root;tag_kl_Semileptonic_chann_div_1D_variables.root,R_ch > 2.0
+c341f58c,tag_kl_Semileptonic_1D_variables.root;tag_kl_Semileptonic_chann_div_1D_variables.root,R_ch > 2.0 && Qmiss < 150.0
+5e2ca87a,tag_kl_Semileptonic_1D_variables.root;tag_kl_Semileptonic_chann_div_1D_variables.root,R_ch > 2.0 && Qmiss < 150.0 && Chi2PMKinFit > 20.0
+5fe22724,tag_kl_Semileptonic_1D_variables.root;tag_kl_Semileptonic_chann_div_1D_variables.root,"R_ch > 2.0 && Qmiss < 150.0 && Chi2PMKinFit > 20.0 && ellipse_cut_func(Knerec_5, KnerecSix_5)"
+a343ca7c,tag_kl_Semileptonic_1D_variables.root;tag_kl_Semileptonic_chann_div_1D_variables.root,"R_ch > 2.0 && Qmiss < 150.0 && Chi2PMKinFit > 20.0 && ellipse_cut_func(Knerec_5, KnerecSix_5) && Chi2NeutralKinFit < 30.0"
+67905aab,tag_kl_Semileptonic_1D_variables.root;tag_kl_Semileptonic_chann_div_1D_variables.root,"R_ch > 2.0 && Qmiss < 150.0 && Chi2PMKinFit > 20.0 && ellipse_cut_func(Knerec_5, KnerecSix_5) && Chi2NeutralKinFit < 30.0 && m1_vs_m2_cut(MassPi0NeutralFit1, MassPi0NeutralFit2, 8.086, 11.515)"

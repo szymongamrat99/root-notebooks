@@ -179,6 +179,89 @@ def histogram_1D_config_creator(variables_1D: list, variables_1D_titles: list, u
 
   print(f"Pomyślnie wygenerowano plik konfiguracyjny YAML: {output_filename}")
 
+def histogram_2D_config_creator(pairs: list, modes: dict, TRUTH_MCTRUTH_ID_2D: int, TRUTH_ONLY_VARS_2D: list, output_filename: str = "histograms_config_2D.yaml"):
+  """Zapisuje config 2D. pairs: [(x, y)], modes: {"x_y": {mode: {"x": mode_x, "y": mode_y}}}."""
+  import yaml
+  config_data = {
+      "truth_mctruth_id_2d": TRUTH_MCTRUTH_ID_2D,
+      "truth_only_vars_2d": list(TRUTH_ONLY_VARS_2D),
+      "histograms_2d": {},
+  }
+  for var_x, var_y in pairs:
+    key = f"{var_x}_{var_y}"
+    config_data["histograms_2d"][key] = {
+        "x": var_x,
+        "y": var_y,
+        "modes": modes.get(key, {"full": {"x": "full", "y": "full"}}),
+    }
+
+  with open(output_filename, "w", encoding="utf-8") as f:
+    yaml.dump(config_data, f, allow_unicode=True, sort_keys=False, default_flow_style=None)
+
+  print(f"Pomyślnie wygenerowano plik konfiguracyjny YAML: {output_filename}")
+
+
+def load_2d_config(config_2d: dict, config_1d: dict):
+  """Buduje (variables_2D, modes_2D, TRUTH_ONLY_VARS_2D, TRUTH_MCTRUTH_ID_2D).
+
+  Waliduje, że zmienne i tryby osi istnieją w configu 1D.
+  variables_2D: [(x, y)], modes_2D: {"x_y": {mode: (mode_x, mode_y)}}.
+  """
+  hists_1d = config_1d.get("histograms_1d", {})
+  variables_2D = []
+  modes_2D = {}
+  for key, entry in config_2d.get("histograms_2d", {}).items():
+    var_x, var_y = entry["x"], entry["y"]
+    for var in (var_x, var_y):
+      if var not in hists_1d:
+        raise KeyError(f"[{key}] zmienna {var!r} nieobecna w histograms_1d")
+    modes_2D[f"{var_x}_{var_y}"] = {}
+    for mode, axes in entry.get("modes", {"full": {"x": "full", "y": "full"}}).items():
+      mode_x, mode_y = axes["x"], axes["y"]
+      for var, axis_mode in ((var_x, mode_x), (var_y, mode_y)):
+        if axis_mode not in hists_1d[var].get("range_x", {}):
+          raise KeyError(f"[{key}] tryb {axis_mode!r} nieobecny w range_x zmiennej {var!r}")
+      modes_2D[f"{var_x}_{var_y}"][mode] = (mode_x, mode_y)
+    variables_2D.append((var_x, var_y))
+
+  return (
+      variables_2D,
+      modes_2D,
+      config_2d.get("truth_only_vars_2d", []),
+      config_2d.get("truth_mctruth_id_2d", 1),
+  )
+
+
+def load_fiducial_filters(config_1d: dict, config_2d: dict = None):
+  """Buduje filtry fiducial volume dla histogramów 1D i 2D.
+
+  Definicje wolumenów są w configu 1D w sekcji `fiducial_volumes: {nazwa: wyrażenie}`.
+  Zmienna (1D) albo para (2D) wskazuje je kluczem `fiducial_volume: nazwa`
+  (lub listą nazw - łączone przez &&).
+
+  Zwraca (filters_1D {zmienna: wyrażenie}, filters_2D {"x_y": wyrażenie}).
+  """
+  volumes = config_1d.get("fiducial_volumes", {}) or {}
+
+  def resolve(owner, names):
+    names = [names] if isinstance(names, str) else list(names)
+    missing = [name for name in names if name not in volumes]
+    if missing:
+      raise KeyError(f"[{owner}] nieznany fiducial_volume: {missing}; dostępne: {list(volumes)}")
+    return " && ".join(f"({volumes[name]})" for name in names)
+
+  filters_1D = {
+      var: resolve(var, entry["fiducial_volume"])
+      for var, entry in config_1d.get("histograms_1d", {}).items()
+      if entry.get("fiducial_volume")
+  }
+  filters_2D = {}
+  for key, entry in ((config_2d or {}).get("histograms_2d", {}) or {}).items():
+    if entry.get("fiducial_volume"):
+      filters_2D[f"{entry['x']}_{entry['y']}"] = resolve(key, entry["fiducial_volume"])
+  return filters_1D, filters_2D
+
+
 def save_resolutions_to_yaml(fit_results_dict: dict, output_filename: str = "resolutions_config.yaml"):
     """
     Zapisuje wyznaczone parametry rozdzielczości i fitów do osobnego pliku YAML.

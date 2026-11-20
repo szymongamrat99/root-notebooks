@@ -1,0 +1,33 @@
+truth_mctruth_id_2d: 5
+truth_only_vars_2d: ["Delta_t_rec_Delta_t_MC", "Delta_t_fit_Delta_t_MC"]
+histograms_2d:
+  Delta_t_rec_Delta_t_MC:
+    x: Delta_t_rec
+    y: Delta_t_MC
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Delta_t_fit_Delta_t_MC:
+    x: Delta_t_fit
+    y: Delta_t_MC
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Kchrec_5_Knerec_5:
+    x: Kchrec_5
+    y: Knerec_5
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  rho_pm_closest_rho_00_closest:
+    x: rho_pm_closest
+    y: rho_00_closest
+    fiducial_volume: omega
+    modes:
+      full: {x: full, y: full}
+  cos_trk1_K_cos_trk2_K:
+    x: cos_trk1_K
+    y: cos_trk2_K
+    fiducial_volume: close_tracks
+    modes:
+      full: {x: full, y: full}

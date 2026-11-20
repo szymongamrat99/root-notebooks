@@ -1,0 +1,329 @@
+truth_mctruth_id_1d: 5
+truth_only_vars_1d: []
+fiducial_volumes:
+  omega: "rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0"
+  close_tracks: "rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45"
+histograms_1d:
+  Knerec_5:
+    title: m^{inv}_{4#gamma} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 200
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  KnerecSix_5:
+    title: m^{inv}_{6#gamma} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 200
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  Kchrec_5:
+    title: m^{inv}_{+-} - m_{K^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -200
+        - 200
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  Qmiss:
+    title: 'E_{corr} - E_{rec}'
+    unit: 'MeV'
+    range_x:
+      full:
+        - 0
+        - 400
+      zoom:
+        - 0
+        - 200
+    resolution: False
+  Chi2SignalKinFit:
+    title: '#chi^{2}_{+-00}'
+    unit: ''
+    range_x:
+      full:
+        - 0
+        - 500
+      zoom:
+        - 0
+        - 100
+    resolution: False
+  Chi2NeutralKinFit:
+    title: '#chi^{2}_{00}'
+    unit: ''
+    range_x:
+      full:
+        - 0
+        - 500
+      zoom:
+        - 0
+        - 100
+    resolution: False
+  Chi2PMKinFit:
+    title: '#chi^{2}_{+-}'
+    unit: ''
+    range_x:
+      full:
+        - 0
+        - 100
+      zoom:
+        - 0
+        - 50
+    resolution: False
+  MassPi01Fit:
+    title: m^{inv,fit,+-00}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  MassPi02Fit:
+    title: m^{inv,fit,+-00}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  MassPi0NeutralFit1:
+    title: m^{inv,fit,00}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  MassPi0NeutralFit2:
+    title: m^{inv,fit,00}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  MassPi0PMFit1:
+    title: m^{inv,fit,+-}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  MassPi0PMFit2:
+    title: m^{inv,fit,+-}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  MassPi01:
+    title: m^{inv,rec}_{#gamma#gamma,1} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  MassPi02:
+    title: m^{inv,rec}_{#gamma#gamma,2} - m_{#pi^{0}}
+    unit: MeV/c^{2}
+    range_x:
+      full:
+        - -400
+        - 400
+      zoom:
+        - -100
+        - 100
+    resolution: False
+  Delta_t_MC:
+    title: '#Deltat^{MC}'
+    unit: '#tau_{S}'
+    range_x:
+      full:
+        - -300
+        - 300
+      zoom:
+        - -100
+        - 100
+    resolution: 1.5
+  Delta_t_fit:
+    title: '#Deltat^{fit}'
+    unit: '#tau_{S}'
+    range_x:
+      full:
+        - -300
+        - 300
+      zoom:
+        - -100
+        - 100
+    resolution: 1.5
+  Delta_t_tri_fit:
+    title: '#Deltat^{tri,fit}'
+    unit: '#tau_{S}'
+    range_x:
+      full:
+        - -300
+        - 300
+      zoom:
+        - -100
+        - 100
+    resolution: 1.5
+  Delta_t_rec:
+    title: '#Deltat^{rec}'
+    unit: '#tau_{S}'
+    range_x:
+      full:
+        - -300
+        - 300
+      zoom:
+        - -100
+        - 100
+    resolution: 1.5
+  nclu:
+    title: Total number of clusters
+    unit: ''
+    range_x:
+      full:
+        - 0
+        - 20
+      zoom:
+        - 0
+        - 10
+    resolution: False
+  bestErrorSixGamma:
+    title: '#Delta_{6}'
+    unit: cm^{2}
+    range_x:
+      full:
+        - 0
+        - 10000
+      zoom:
+        - 0
+        - 1000
+    resolution: False
+  neu_clu_num:
+    title: Number of neutral clusters
+    unit: ''
+    range_x:
+      full:
+        - 0
+        - 20
+      zoom:
+        - 0
+        - 10
+    resolution: False
+  R_ch:
+    title: 'R_{+-,IP}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0
+        - 150
+      zoom:
+        - 0
+        - 10
+    resolution: 0.6
+  R_ne:
+    title: 'R_{000,IP}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0
+        - 150
+      zoom:
+        - 0
+        - 10
+    resolution: 0.6
+  rho_pm_closest:
+    title: '#rho_{#pm,2}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0.0
+        - 10.0
+      zoom:
+        - 0.0
+        - 5.0
+    resolution: 0.5
+    fiducial_volume: omega
+  rho_00_closest:
+    title: '#rho_{#pm,1}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0.0
+        - 10.0
+      zoom:
+        - 0.0
+        - 5.0
+    resolution: 0.5
+    fiducial_volume: omega
+  cos_trk1_K:
+    title: 'cos#theta_{track_{1}, K_{2}}'
+    unit: '-'
+    range_x:
+      full:
+        - -1.0
+        - 1.0
+      zoom:
+        - -0.2
+        - 0.2
+    resolution: 0.02
+    fiducial_volume: close_tracks
+  cos_trk2_K:
+    title: 'cos#theta_{track_{2}, K_{2}}'
+    unit: '-'
+    range_x:
+      full:
+        - -1.0
+        - 1.0
+      zoom:
+        - -0.2
+        - 0.2
+    resolution: 0.02
+    fiducial_volume: close_tracks
+  angleBetweenTracksKaonCM:
+    title: 'Angle between tracks in Kaon CM'
+    unit: '#circ'
+    range_x:
+      full:
+        - 0.0
+        - 180.0
+      zoom:
+        - 30.0
+        - 180.0
+    resolution: 1.0

@@ -35,6 +35,11 @@ truth_only_vars_1d:
 - KchrecKL_x_resolution
 - KchrecKL_y_resolution
 - KchrecKL_z_resolution
+# Fiducial volumes: nazwa -> wyrażenie (dodatkowy filtr). Zmienna wskazuje je kluczem
+# `fiducial_volume: nazwa` (lub listą nazw, łączone przez &&).
+fiducial_volumes:
+  omega: "rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0"
+  close_tracks: "rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45"
 histograms_1d:
   Emiss:
     title: 'Missing energy'
@@ -94,6 +99,7 @@ histograms_1d:
   rho_KS:
     title: '#rho_{K_{1}}'
     unit: 'cm'
+    # fiducial_volume: omega
     range_x:
       full:
         - 0.0
@@ -608,3 +614,51 @@ histograms_1d:
         - -2.0
         - 2.0
     resolution: False
+  rho_pm_closest:
+    title: '#rho_{#pm,2}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0.0
+        - 10.0
+      zoom:
+        - 0.0
+        - 5.0
+    resolution: 0.5
+    fiducial_volume: omega
+  rho_00_closest:
+    title: '#rho_{#pm,1}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0.0
+        - 10.0
+      zoom:
+        - 0.0
+        - 5.0
+    resolution: 0.5
+    fiducial_volume: omega
+  cos_trk1_K:
+    title: 'cos#theta_{track_{1}, K_{2}}'
+    unit: '-'
+    range_x:
+      full:
+        - -1.0
+        - 1.0
+      zoom:
+        - -0.2
+        - 0.2
+    resolution: 0.02
+    fiducial_volume: close_tracks
+  cos_trk2_K:
+    title: 'cos#theta_{track_{2}, K_{2}}'
+    unit: '-'
+    range_x:
+      full:
+        - -1.0
+        - 1.0
+      zoom:
+        - -0.2
+        - 0.2
+    resolution: 0.02
+    fiducial_volume: close_tracks

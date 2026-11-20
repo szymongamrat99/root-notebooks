@@ -1,0 +1,6 @@
+{0: 'Data', 1: 'Signal', 2: 'Regeneration', 3: 'Omega', 4: '3pi0', 5: 'Semileptonic', 6: 'Other', 7: 'pi+pi-pi+pi-', 8: 'MC sum'}
+Przetestowano 351 plików. Poprawnych: 351, Odrzuconych: 0
+Przetestowano 420 plików. Poprawnych: 420, Odrzuconych: 0
+Lumi factor: 1.1311
+
+[INFO] Przetwarzanie kroku: 00_no_cuts (liczba aktywnych cięć: 0)

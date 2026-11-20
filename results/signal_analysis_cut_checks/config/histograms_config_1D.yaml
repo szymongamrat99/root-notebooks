@@ -90,7 +90,43 @@ truth_only_vars_1d:
 - MassPi0NeutralFit2_resolution
 - MassPi0PMFit1_resolution
 - MassPi0PMFit2_resolution
+fiducial_volumes:
+  omega: "rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0"
+  close_tracks: "rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45"
 histograms_1d:
+  Emiss:
+    title: 'Missing energy'
+    unit: 'MeV'
+    range_x:
+      full:
+        - -200
+        - 200
+      zoom:
+        - -20
+        - 20
+    resolution: 1.0
+  Pmiss:
+    title: 'Missing momentum'
+    unit: 'MeV/c'
+    range_x:
+      full:
+        - 0.0
+        - 500.0
+      zoom:
+        - 0.0
+        - 20.0
+    resolution: 1.0
+  MissDiff:
+    title: 'Missing invariant mass'
+    unit: 'MeV/c^{2}'
+    range_x:
+      full:
+        - 0
+        - 200
+      zoom:
+        - 0
+        - 20
+    resolution: 1.0
   Knerec_5:
     title: m^{inv}_{4#gamma} - m_{K^{0}}
     unit: MeV/c^{2}
@@ -101,6 +137,7 @@ histograms_1d:
       zoom:
         - -400
         - 200
+    resolution: False
   KnerecSix_5:
     title: m^{inv}_{6#gamma} - m_{K^{0}}
     unit: MeV/c^{2}
@@ -111,6 +148,7 @@ histograms_1d:
       zoom:
         - -200
         - 200
+    resolution: False
   Kchrec_5:
     title: m^{inv}_{+-} - m_{K^{0}}
     unit: MeV/c^{2}
@@ -121,6 +159,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   Chi2SignalKinFit:
     title: '#chi^{2}_{+-00}'
     unit: ''
@@ -131,6 +170,7 @@ histograms_1d:
       zoom:
         - 0
         - 100
+    resolution: False
   Chi2NeutralKinFit:
     title: '#chi^{2}_{00}'
     unit: ''
@@ -141,6 +181,7 @@ histograms_1d:
       zoom:
         - 0
         - 100
+    resolution: False
   Chi2PMKinFit:
     title: '#chi^{2}_{+-}'
     unit: ''
@@ -151,6 +192,7 @@ histograms_1d:
       zoom:
         - 0
         - 20
+    resolution: False
   MassPi01Fit:
     title: m^{inv,fit,+-00}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -161,6 +203,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi02Fit:
     title: m^{inv,fit,+-00}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -171,6 +214,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi0NeutralFit1:
     title: m^{inv,fit,00}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -181,6 +225,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi0NeutralFit2:
     title: m^{inv,fit,00}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -191,6 +236,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi0PMFit1:
     title: m^{inv,fit,+-}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -201,6 +247,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi0PMFit2:
     title: m^{inv,fit,+-}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -211,6 +258,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi01:
     title: m^{inv,rec}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -221,6 +269,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi02:
     title: m^{inv,rec}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -231,6 +280,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   Delta_t_fit:
     title: '#Deltat^{fit}'
     unit: '#tau_{S}'
@@ -241,6 +291,18 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: 1.5
+  Delta_t_tri_fit:
+    title: '#Deltat^{fit}'
+    unit: '#tau_{S}'
+    range_x:
+      full:
+        - -300
+        - 300
+      zoom:
+        - -100
+        - 100
+    resolution: 1.5
   Delta_t_MC:
     title: '#Deltat^{MC}'
     unit: '#tau_{S}'
@@ -251,6 +313,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: 1.5
   Delta_t_rec:
     title: '#Deltat^{rec}'
     unit: '#tau_{S}'
@@ -261,6 +324,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: 1.5
   Delta_t_fit_resolution:
     title: '#Deltat^{fit} - #Deltat^{MC}'
     unit: '#tau_{S}'
@@ -271,6 +335,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: 1.5
   Delta_t_rec_resolution:
     title: '#Deltat^{rec} - #Deltat^{MC}'
     unit: '#tau_{S}'
@@ -281,6 +346,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: 1.5
   trk1_px_resolution:
     title: p^{x,rec}_{+-,1} - p^{x,MC}_{+-,1}
     unit: MeV/c
@@ -291,6 +357,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   trk2_px_resolution:
     title: p^{x,rec}_{+-,2} - p^{x,MC}_{+-,2}
     unit: MeV/c
@@ -301,6 +368,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   trk1_py_resolution:
     title: p^{y,rec}_{+-,1} - p^{y,MC}_{+-,1}
     unit: MeV/c
@@ -311,6 +379,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   trk2_py_resolution:
     title: p^{y,rec}_{+-,2} - p^{y,MC}_{+-,2}
     unit: MeV/c
@@ -321,6 +390,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   trk1_pz_resolution:
     title: p^{z,rec}_{+-,1} - p^{z,MC}_{+-,1}
     unit: MeV/c
@@ -331,6 +401,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   trk2_pz_resolution:
     title: p^{z,rec}_{+-,2} - p^{z,MC}_{+-,2}
     unit: MeV/c
@@ -341,6 +412,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   Kchrec_px_resolution:
     title: p^{x,rec}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -351,6 +423,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   Kchrec_py_resolution:
     title: p^{y,rec}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -361,6 +434,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   Kchrec_pz_resolution:
     title: p^{z,rec}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -371,6 +445,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   Kchrec_E_resolution:
     title: E^{rec}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV
@@ -381,6 +456,7 @@ histograms_1d:
       zoom:
         - -1.5
         - 1.5
+    resolution: False
   Kchrec_x_resolution:
     title: x^{rec}_{+-} - x^{MC}_{+-}
     unit: cm
@@ -391,6 +467,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   Kchrec_y_resolution:
     title: y^{rec}_{+-} - y^{MC}_{+-}
     unit: cm
@@ -401,6 +478,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   Kchrec_z_resolution:
     title: z^{rec}_{+-} - z^{MC}_{+-}
     unit: cm
@@ -411,6 +489,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   Kchboost_px_resolution:
     title: p^{x,boost}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -421,6 +500,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   Kchboost_py_resolution:
     title: p^{y,boost}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -431,6 +511,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   Kchboost_pz_resolution:
     title: p^{z,boost}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -441,6 +522,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   Kchboost_E_resolution:
     title: E^{boost}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV
@@ -451,6 +533,7 @@ histograms_1d:
       zoom:
         - -1.5
         - 1.5
+    resolution: False
   Knerec_px_resolution:
     title: p^{x,rec}_{K#rightarrow#pi^{0}#pi^{0}} - p^{x,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -461,6 +544,7 @@ histograms_1d:
       zoom:
         - -150
         - 150
+    resolution: False
   Knerec_py_resolution:
     title: p^{y,rec}_{K#rightarrow#pi^{0}#pi^{0}} - p^{y,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -471,6 +555,7 @@ histograms_1d:
       zoom:
         - -150
         - 150
+    resolution: False
   Knerec_pz_resolution:
     title: p^{z,rec}_{K#rightarrow#pi^{0}#pi^{0}} - p^{z,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -481,6 +566,7 @@ histograms_1d:
       zoom:
         - -150
         - 150
+    resolution: False
   Knerec_E_resolution:
     title: E^{rec}_{K#rightarrow#pi^{0}#pi^{0}} - E^{MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV
@@ -491,6 +577,7 @@ histograms_1d:
       zoom:
         - -150
         - 150
+    resolution: False
   Knerec_x_resolution:
     title: x^{rec}_{00} - x^{MC}_{00}
     unit: cm
@@ -501,6 +588,7 @@ histograms_1d:
       zoom:
         - -4
         - 4
+    resolution: False
   Knerec_y_resolution:
     title: y^{rec}_{00} - y^{MC}_{00}
     unit: cm
@@ -511,6 +599,7 @@ histograms_1d:
       zoom:
         - -4
         - 4
+    resolution: False
   Knerec_z_resolution:
     title: z^{rec}_{00} - z^{MC}_{00}
     unit: cm
@@ -521,6 +610,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KnetriKinFit_px_resolution:
     title: p^{x,tri}_{K#rightarrow#pi^{0}#pi^{0}} - p^{x,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -531,6 +621,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   KnetriKinFit_py_resolution:
     title: p^{y,tri}_{K#rightarrow#pi^{0}#pi^{0}} - p^{y,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -541,6 +632,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   KnetriKinFit_pz_resolution:
     title: p^{z,tri}_{K#rightarrow#pi^{0}#pi^{0}} - p^{z,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -551,6 +643,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   KnetriKinFit_E_resolution:
     title: E^{tri}_{K#rightarrow#pi^{0}#pi^{0}} - E^{MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV
@@ -561,6 +654,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   KnetriKinFit_x_resolution:
     title: x^{tri}_{00} - x^{MC}_{00}
     unit: cm
@@ -571,6 +665,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   KnetriKinFit_y_resolution:
     title: y^{tri}_{00} - y^{MC}_{00}
     unit: cm
@@ -581,6 +676,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   KnetriKinFit_z_resolution:
     title: z^{tri}_{00} - z^{MC}_{00}
     unit: cm
@@ -591,6 +687,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KchrecFit_px_resolution:
     title: p^{x,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -601,6 +698,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False 
   KchrecFit_py_resolution:
     title: p^{y,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -611,6 +709,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KchrecFit_pz_resolution:
     title: p^{z,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -621,6 +720,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KchrecFit_E_resolution:
     title: E^{fit}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV
@@ -631,6 +731,7 @@ histograms_1d:
       zoom:
         - -1.5
         - 1.5
+    resolution: False
   KchrecFit_x_resolution:
     title: x^{fit}_{+-} - x^{MC}_{+-}
     unit: cm
@@ -641,6 +742,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   KchrecFit_y_resolution:
     title: y^{fit}_{+-} - y^{MC}_{+-}
     unit: cm
@@ -651,6 +753,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   KchrecFit_z_resolution:
     title: z^{fit}_{+-} - z^{MC}_{+-}
     unit: cm
@@ -661,6 +764,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   KchboostFit_px_resolution:
     title: p^{x,boost,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -671,6 +775,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KchboostFit_py_resolution:
     title: p^{y,boost,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -681,6 +786,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KchboostFit_pz_resolution:
     title: p^{z,boost,fit}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -691,6 +797,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KchboostFit_E_resolution:
     title: E^{boost,fit}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV
@@ -701,6 +808,7 @@ histograms_1d:
       zoom:
         - -1
         - 1
+    resolution: False
   KnerecFit_px_resolution:
     title: p^{x,fit}_{K#rightarrow#pi^{0}#pi^{0}} - p^{x,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -711,6 +819,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KnerecFit_py_resolution:
     title: p^{y,fit}_{K#rightarrow#pi^{0}#pi^{0}} - p^{y,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -721,6 +830,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KnerecFit_pz_resolution:
     title: p^{z,fit}_{K#rightarrow#pi^{0}#pi^{0}} - p^{z,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -731,6 +841,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KnerecFit_E_resolution:
     title: E^{fit}_{K#rightarrow#pi^{0}#pi^{0}} - E^{MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV
@@ -741,6 +852,7 @@ histograms_1d:
       zoom:
         - -1.5
         - 1.5
+    resolution: False
   KnerecFit_x_resolution:
     title: x^{fit}_{00} - x^{MC}_{00}
     unit: cm
@@ -751,6 +863,7 @@ histograms_1d:
       zoom:
         - -3
         - 3
+    resolution: False
   KnerecFit_y_resolution:
     title: y^{fit}_{00} - y^{MC}_{00}
     unit: cm
@@ -761,6 +874,7 @@ histograms_1d:
       zoom:
         - -3
         - 3
+    resolution: False
   KnerecFit_z_resolution:
     title: z^{fit}_{00} - z^{MC}_{00}
     unit: cm
@@ -771,6 +885,7 @@ histograms_1d:
       zoom:
         - -8
         - 8
+    resolution: False
   ip_bhabha_x_resolution:
     title: x^{bhabha}_{IP} - x^{MC}_{IP}
     unit: cm
@@ -781,6 +896,7 @@ histograms_1d:
       zoom:
         - -0.2
         - 0.2
+    resolution: False
   ip_bhabha_y_resolution:
     title: y^{bhabha}_{IP} - y^{MC}_{IP}
     unit: cm
@@ -791,6 +907,7 @@ histograms_1d:
       zoom:
         - -0.1
         - 0.1
+    resolution: False
   ip_bhabha_z_resolution:
     title: z^{bhabha}_{IP} - z^{MC}_{IP}
     unit: cm
@@ -801,6 +918,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   ip_x_resolution:
     title: x^{corr}_{IP} - x^{MC}_{IP}
     unit: cm
@@ -811,6 +929,7 @@ histograms_1d:
       zoom:
         - -0.2
         - 0.2
+    resolution: False
   ip_y_resolution:
     title: y^{corr}_{IP} - y^{MC}_{IP}
     unit: cm
@@ -821,6 +940,7 @@ histograms_1d:
       zoom:
         - -0.1
         - 0.1
+    resolution: False
   ip_z_resolution:
     title: z^{corr}_{IP} - z^{MC}_{IP}
     unit: cm
@@ -831,6 +951,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   ipFit_x_resolution:
     title: x^{fit}_{IP} - x^{MC}_{IP}
     unit: cm
@@ -841,6 +962,7 @@ histograms_1d:
       zoom:
         - -0.2
         - 0.2
+    resolution: False
   ipFit_y_resolution:
     title: y^{fit}_{IP} - y^{MC}_{IP}
     unit: cm
@@ -851,6 +973,7 @@ histograms_1d:
       zoom:
         - -0.1
         - 0.1
+    resolution: False
   ipFit_z_resolution:
     title: z^{fit}_{IP} - z^{MC}_{IP}
     unit: cm
@@ -861,6 +984,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   KchrecPMFit_px_resolution:
     title: p^{x,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -871,6 +995,7 @@ histograms_1d:
       zoom:
         - -8
         - 8
+    resolution: False
   KchrecPMFit_py_resolution:
     title: p^{y,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -881,6 +1006,7 @@ histograms_1d:
       zoom:
         - -8
         - 8
+    resolution: False
   KchrecPMFit_pz_resolution:
     title: p^{z,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -891,6 +1017,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   KchrecPMFit_E_resolution:
     title: E^{fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV
@@ -901,6 +1028,7 @@ histograms_1d:
       zoom:
         - -1.5
         - 1.5
+    resolution: False
   KchrecPMFit_x_resolution:
     title: x^{fit(+-)}_{+-} - x^{MC}_{+-}
     unit: cm
@@ -911,6 +1039,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   KchrecPMFit_y_resolution:
     title: y^{fit(+-)}_{+-} - y^{MC}_{+-}
     unit: cm
@@ -921,6 +1050,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   KchrecPMFit_z_resolution:
     title: z^{fit(+-)}_{+-} - z^{MC}_{+-}
     unit: cm
@@ -931,6 +1061,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   KchboostPMFit_px_resolution:
     title: p^{x,boost,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{x,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -941,6 +1072,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   KchboostPMFit_py_resolution:
     title: p^{y,boost,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{y,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -951,6 +1083,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   KchboostPMFit_pz_resolution:
     title: p^{z,boost,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - p^{z,MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV/c
@@ -961,6 +1094,7 @@ histograms_1d:
       zoom:
         - -5
         - 5
+    resolution: False
   KchboostPMFit_E_resolution:
     title: E^{boost,fit(+-)}_{K#rightarrow#pi^{+}#pi^{-}} - E^{MC}_{K#rightarrow#pi^{+}#pi^{-}}
     unit: MeV
@@ -971,6 +1105,7 @@ histograms_1d:
       zoom:
         - -1.5
         - 1.5
+    resolution: False
   KnerecNeutralFit_px_resolution:
     title: p^{x,fit(00)}_{K#rightarrow#pi^{0}#pi^{0}} - p^{x,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -981,6 +1116,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   KnerecNeutralFit_py_resolution:
     title: p^{y,fit(00)}_{K#rightarrow#pi^{0}#pi^{0}} - p^{y,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -991,6 +1127,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   KnerecNeutralFit_pz_resolution:
     title: p^{z,fit(00)}_{K#rightarrow#pi^{0}#pi^{0}} - p^{z,MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV/c
@@ -1001,6 +1138,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   KnerecNeutralFit_E_resolution:
     title: E^{fit(00)}_{K#rightarrow#pi^{0}#pi^{0}} - E^{MC}_{K#rightarrow#pi^{0}#pi^{0}}
     unit: MeV
@@ -1011,6 +1149,7 @@ histograms_1d:
       zoom:
         - -2
         - 2
+    resolution: False
   KnerecNeutralFit_x_resolution:
     title: x^{fit(00)}_{00} - x^{MC}_{00}
     unit: cm
@@ -1021,6 +1160,7 @@ histograms_1d:
       zoom:
         - -3
         - 3
+    resolution: False
   KnerecNeutralFit_y_resolution:
     title: y^{fit(00)}_{00} - y^{MC}_{00}
     unit: cm
@@ -1031,6 +1171,7 @@ histograms_1d:
       zoom:
         - -3
         - 3
+    resolution: False
   KnerecNeutralFit_z_resolution:
     title: z^{fit(00)}_{00} - z^{MC}_{00}
     unit: cm
@@ -1041,6 +1182,7 @@ histograms_1d:
       zoom:
         - -4
         - 4
+    resolution: False
   Knerec_5_resolution:
     title: m^{inv}_{4#gamma} - m_{K^{0}}
     unit: MeV/c^{2}
@@ -1051,6 +1193,7 @@ histograms_1d:
       zoom:
         - -200
         - 100
+    resolution: False
   KnerecSix_5_resolution:
     title: m^{inv}_{6#gamma} - m_{K^{0}}
     unit: MeV/c^{2}
@@ -1061,6 +1204,7 @@ histograms_1d:
       zoom:
         - -200
         - 200
+    resolution: False
   Kchrec_5_resolution:
     title: m^{inv}_{+-} - m_{K^{0}}
     unit: MeV/c^{2}
@@ -1071,6 +1215,7 @@ histograms_1d:
       zoom:
         - -10
         - 10
+    resolution: False
   MassPi01Fit_resolution:
     title: m^{inv,fit,+-00}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -1081,6 +1226,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi02Fit_resolution:
     title: m^{inv,fit,+-00}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -1091,6 +1237,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi0NeutralFit1_resolution:
     title: m^{inv,fit,00}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -1101,6 +1248,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi0NeutralFit2_resolution:
     title: m^{inv,fit,00}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -1111,6 +1259,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi0PMFit1_resolution:
     title: m^{inv,fit,+-}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -1121,6 +1270,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi0PMFit2_resolution:
     title: m^{inv,fit,+-}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -1131,6 +1281,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi01_resolution:
     title: m^{inv,rec}_{#gamma#gamma,1} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -1141,6 +1292,7 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
   MassPi02_resolution:
     title: m^{inv,rec}_{#gamma#gamma,2} - m_{#pi^{0}}
     unit: MeV/c^{2}
@@ -1151,3 +1303,52 @@ histograms_1d:
       zoom:
         - -100
         - 100
+    resolution: False
+  rho_pm_closest:
+    title: '#rho_{#pm}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0.0
+        - 10.0
+      zoom:
+        - 0.0
+        - 5.0
+    resolution: 0.5
+    fiducial_volume: omega
+  rho_00_closest:
+    title: '#rho_{00}'
+    unit: 'cm'
+    range_x:
+      full:
+        - 0.0
+        - 10.0
+      zoom:
+        - 0.0
+        - 5.0
+    resolution: 0.5
+    fiducial_volume: omega
+  cos_trk1_K:
+    title: 'cos#theta_{track_{1}, K}'
+    unit: '-'
+    range_x:
+      full:
+        - -1.0
+        - 1.0
+      zoom:
+        - -0.2
+        - 0.2
+    resolution: 0.1
+    fiducial_volume: close_tracks
+  cos_trk2_K:
+    title: 'cos#theta_{track_{2}, K}'
+    unit: '-'
+    range_x:
+      full:
+        - -1.0
+        - 1.0
+      zoom:
+        - -0.2
+        - 0.2
+    resolution: 0.1
+    fiducial_volume: close_tracks
