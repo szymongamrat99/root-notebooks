@@ -3,4 +3,9 @@ Przetestowano 351 plików. Poprawnych: 351, Odrzuconych: 0
 Przetestowano 420 plików. Poprawnych: 420, Odrzuconych: 0
 Lumi factor: 1.1311
 
-[INFO] Przetwarzanie kroku: 00_no_cuts (liczba aktywnych cięć: 0)
+[INFO] Przetwarzanie kroku: step_06 (liczba aktywnych cięć: 6)
+[INFO] Zaktualizowano wpis dla hashu 9138eb05 w rejestrze w /workspace/root_notebooks/results/signal_analysis_cut_checks/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 9138eb05 w rejestrze w /workspace/root_notebooks/results/signal_analysis_cut_checks/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 9138eb05 w rejestrze w /workspace/root_notebooks/results/signal_analysis_cut_checks/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 9138eb05 w rejestrze w /workspace/root_notebooks/results/signal_analysis_cut_checks/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Pętla sekwencyjnego nakładania cięć została pomyślnie zakończona!

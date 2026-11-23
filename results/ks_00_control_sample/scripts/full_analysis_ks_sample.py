@@ -31,7 +31,7 @@ from utils.hist_utils import (
     draw_and_save_2d_histograms,
 )
 
-ROOT.EnableImplicitMT(45)
+ROOT.EnableImplicitMT(90)
 ROOT.gStyle.SetPalette(ROOT.kRainbow)
 
 ROOT.gSystem.Load("/workspace/KLOE/Include/Codes/libLibRec.so")

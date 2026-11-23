@@ -1,26 +1,35 @@
 truth_mctruth_id_2d: 1
-truth_only_vars_2d: ["Delta_t_rec_Delta_t_MC", "Delta_t_fit_Delta_t_MC", "Delta_t_MC_Pmiss", "Delta_t_MC_Delta_t_rec_resolution", "Delta_t_MC_Delta_t_fit_resolution"]
+truth_only_vars_2d: ["Delta_t_MC_Delta_t_rec", "Delta_t_MC_Delta_t_fit", "Delta_t_MC_Pmiss",
+ "Delta_t_MC_Delta_t_tri_fit", 
+ "Delta_t_MC_Delta_t_rec_resolution", "Delta_t_MC_Delta_t_fit_resolution",
+ "Time_Ne_MC_Time_Ne_rec", "Time_Ne_MC_Time_Ne_tri_fit"]
 histograms_2d:
-  Delta_t_rec_Delta_t_MC:
-    x: Delta_t_rec
-    y: Delta_t_MC
+  Delta_t_MC_Delta_t_rec:
+    x: Delta_t_MC
+    y: Delta_t_rec
     modes:
       full: {x: full, y: full}
       zoom: {x: zoom, y: zoom}
-  Delta_t_fit_Delta_t_MC:
-    x: Delta_t_fit
-    y: Delta_t_MC
+  Delta_t_MC_Delta_t_fit:
+    x: Delta_t_MC
+    y: Delta_t_fit
     modes:
       full: {x: full, y: full}
       zoom: {x: zoom, y: zoom}
-  Delta_t_fit_Delta_t_tri_fit:
-    x: Delta_t_fit
+  Delta_t_MC_Delta_t_tri_fit:
+    x: Delta_t_MC
     y: Delta_t_tri_fit
     modes:
       full: {x: full, y: full}
       zoom: {x: zoom, y: zoom}
   Delta_t_rec_Delta_t_tri_fit:
     x: Delta_t_rec
+    y: Delta_t_tri_fit
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Delta_t_fit_Delta_t_tri_fit:
+    x: Delta_t_fit
     y: Delta_t_tri_fit
     modes:
       full: {x: full, y: full}
@@ -70,6 +79,60 @@ histograms_2d:
   Delta_t_MC_Delta_t_fit_resolution:
     x: Delta_t_MC
     y: Delta_t_fit_resolution
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Time_Ne_MC_Time_Ne_rec:
+    x: Time_Ne_MC
+    y: Time_Ne_rec
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Time_Ne_MC_Time_Ne_tri_fit:
+    x: Time_Ne_MC
+    y: Time_Ne_tri_fit
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Time_Ne_MC_Time_Ne_fit:
+    x: Time_Ne_MC
+    y: Time_Ne_fit
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Time_Ne_fit_Time_Ne_tri_fit:
+    x: Time_Ne_fit
+    y: Time_Ne_tri_fit
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  Time_Ne_rec_Time_Ne_tri_fit:
+    x: Time_Ne_rec
+    y: Time_Ne_tri_fit
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  R_ch_MC_R_ch_resolution:
+    x: R_ch_MC
+    y: R_ch_resolution
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  R_ne_MC_R_ne_resolution:
+    x: R_ne_MC
+    y: R_ne_resolution
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  R_ch_MC_R_ch_fit_resolution:
+    x: R_ch_MC
+    y: R_ch_fit_resolution
+    modes:
+      full: {x: full, y: full}
+      zoom: {x: zoom, y: zoom}
+  R_ne_MC_R_ne_fit_resolution:
+    x: R_ne_MC
+    y: R_ne_fit_resolution
     modes:
       full: {x: full, y: full}
       zoom: {x: zoom, y: zoom}

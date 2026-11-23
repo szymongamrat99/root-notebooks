@@ -129,6 +129,10 @@ df_data = (
     .Define("Delta_t_tri_fit", "KaonChTimeCMBoostTriFit - KaonNeTimeCMBoostTriFit")
     .Define("Delta_t_MC", "KaonChTimeCMMC - KaonNeTimeCMMC")
     .Define("Delta_t_rec", "KaonChTimeCMBoostLor - KaonNeTimeCMBoostLor")
+    .Define("Time_Ne_fit", "KaonNeTimeCMSignalFit")
+    .Define("Time_Ne_rec", "KaonNeTimeCMBoostLor")
+    .Define("Time_Ne_MC", "KaonNeTimeCMMC")
+    .Define("Time_Ne_tri_fit", "KaonNeTimeCMBoostTriFit")
     ###############################################################################################
     ######################## Resolutions ##########################################################
     .Define("Delta_t_fit_resolution", "Delta_t_fit - Delta_t_MC")
@@ -269,6 +273,11 @@ df_data = (
       .Define("rho_ne_MC", "calc_cylindrical_radius(Knemc, ipmc)")
       .Define("z_ch_MC", "calc_z_component(Kchmc, ipmc)")
       .Define("z_ne_MC", "calc_z_component(Knemc, ipmc)")
+      ######################### Resolutions ###################################
+      .Define("R_ch_resolution", "R_ch - R_ch_MC")
+      .Define("R_ne_resolution", "R_ne - R_ne_MC")
+      .Define("R_ch_fit_resolution", "R_ch_fit - R_ch_MC")
+      .Define("R_ne_fit_resolution", "R_ne_fit - R_ne_MC")
 )
 
 ################## ADDITIONAL BRANCHES FOR SAMPLE CLEARING ########################################
@@ -301,6 +310,10 @@ df = (
     .Define("Delta_t_tri_fit", "KaonChTimeCMBoostTriFit - KaonNeTimeCMBoostTriFit")
     .Define("Delta_t_MC", "KaonChTimeCMMC - KaonNeTimeCMMC")
     .Define("Delta_t_rec", "KaonChTimeCMBoostLor - KaonNeTimeCMBoostLor")
+    .Define("Time_Ne_fit", "KaonNeTimeCMSignalFit")
+    .Define("Time_Ne_rec", "KaonNeTimeCMBoostLor")
+    .Define("Time_Ne_MC", "KaonNeTimeCMMC")
+    .Define("Time_Ne_tri_fit", "KaonNeTimeCMBoostTriFit")
     ###############################################################################################
     ######################## Resolutions ##########################################################
     .Define("Delta_t_fit_resolution", "Delta_t_fit - Delta_t_MC")
@@ -441,6 +454,11 @@ df = (
       .Define("rho_ne_MC", "calc_cylindrical_radius(Knemc, ipmc)")
       .Define("z_ch_MC", "calc_z_component(Kchmc, ipmc)")
       .Define("z_ne_MC", "calc_z_component(Knemc, ipmc)")
+      ######################### Resolutions ###################################
+      .Define("R_ch_resolution", "R_ch - R_ch_MC")
+      .Define("R_ne_resolution", "R_ne - R_ne_MC")
+      .Define("R_ch_fit_resolution", "R_ch_fit - R_ch_MC")
+      .Define("R_ne_fit_resolution", "R_ne_fit - R_ne_MC")
 )
 
 ################## ADDITIONAL BRANCHES FOR SAMPLE CLEARING ########################################
@@ -612,7 +630,7 @@ full_cut_list = ["abs(Kchrec_5_resolution) <= 3 * 0.8090",
             "ellipse_cut_func(Knerec_5_resolution, KnerecSix_5_resolution)",
             f"({fiducial_volume_omega} && rho_pm_closest > 1.0&& rho_00_closest > 0.4) || !({fiducial_volume_omega})",
             f"({fiducial_volume_close_tracks} && (abs(cos_trk1_K) < 0.8 || abs(cos_trk2_K) < 0.8) ) || !({fiducial_volume_close_tracks})",
-            f"m1_vs_m2_cut(MassPi01Fit_resolution, MassPi01Fit_resolution, {cut1}, {cut2})",
+            f"m1_vs_m2_cut(MassPi01Fit_resolution, MassPi02Fit_resolution, {cut1}, {cut2})",
             "Chi2SignalKinFit < 30.0"
             ]
 
@@ -633,7 +651,7 @@ for division in division_list:
   # --- GŁÓWNA PĘTLA BUDUJĄCA CIĘCIA KROK PO KROKU ---
   # Możesz zacząć od indeksu -1 (czyli stan "beż żadnych cięć" / nocuts)
   # lub od i = 0 (jeśli chcesz zacząć od razu od pierwszego cięcia).
-  for i in range(-1, len(full_cut_list)):
+  for i in range(len(full_cut_list) - 1, len(full_cut_list)):
 
     # Wycinamy podzbiór cięć od początku do bieżącego kroku
     if i == -1:
