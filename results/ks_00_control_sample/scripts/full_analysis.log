@@ -3,48 +3,75 @@
 Przetestowano 351 plików. Poprawnych: 351, Odrzuconych: 0
 Przetestowano 420 plików. Poprawnych: 420, Odrzuconych: 0
 Lumi factor: 1.1311
-['neu_clu_num >= 6', 'bestErrorSixGamma < 2000.0', 'abs(Knerec_5 + 153.0798) < 120', 'abs(Kchrec_5) <= 3 * 0.8090', '(rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0 && rho_pm_closest > 1.0) || !(rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0)', '(rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45 && (abs(cos_trk1_K) < 0.8 || abs(cos_trk2_K) < 0.8) ) || !(rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45)']
 
 [INFO] Przetwarzanie kroku: 00_no_cuts (liczba aktywnych cięć: 0)
-[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_01 (liczba aktywnych cięć: 1)
-[INFO] Zaktualizowano wpis dla hashu 519c0397 w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 367d1fa3 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 367d1fa3 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 367d1fa3 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_02 (liczba aktywnych cięć: 2)
-[INFO] Zaktualizowano wpis dla hashu 66563976 w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu c341f58c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu c341f58c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu c341f58c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_03 (liczba aktywnych cięć: 3)
-[INFO] Zaktualizowano wpis dla hashu 09acde96 w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5e2ca87a w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5e2ca87a w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5e2ca87a w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_04 (liczba aktywnych cięć: 4)
-[INFO] Zaktualizowano wpis dla hashu 38d0455f w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5fe22724 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5fe22724 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5fe22724 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_05 (liczba aktywnych cięć: 5)
-[INFO] Zaktualizowano wpis dla hashu ee5a338e w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu a343ca7c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu a343ca7c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu a343ca7c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_06 (liczba aktywnych cięć: 6)
-[INFO] Zaktualizowano wpis dla hashu 03e630a8 w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 67905aab w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 67905aab w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 67905aab w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 [INFO] Pętla sekwencyjnego nakładania cięć została pomyślnie zakończona!
 
 [INFO] Przetwarzanie kroku: 00_no_cuts (liczba aktywnych cięć: 0)
-[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu nocuts w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_01 (liczba aktywnych cięć: 1)
-[INFO] Zaktualizowano wpis dla hashu 519c0397 w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 367d1fa3 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 367d1fa3 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 367d1fa3 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_02 (liczba aktywnych cięć: 2)
-[INFO] Zaktualizowano wpis dla hashu 66563976 w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu c341f58c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu c341f58c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu c341f58c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_03 (liczba aktywnych cięć: 3)
-[INFO] Zaktualizowano wpis dla hashu 09acde96 w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5e2ca87a w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5e2ca87a w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5e2ca87a w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_04 (liczba aktywnych cięć: 4)
-[INFO] Zaktualizowano wpis dla hashu 38d0455f w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5fe22724 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5fe22724 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 5fe22724 w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_05 (liczba aktywnych cięć: 5)
-[INFO] Zaktualizowano wpis dla hashu ee5a338e w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu a343ca7c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu a343ca7c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu a343ca7c w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 
 [INFO] Przetwarzanie kroku: step_06 (liczba aktywnych cięć: 6)
-[INFO] Zaktualizowano wpis dla hashu 03e630a8 w rejestrze w /workspace/root_notebooks/results/ks_pm_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 67905aab w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 67905aab w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
+[INFO] Zaktualizowano wpis dla hashu 67905aab w rejestrze w /workspace/root_notebooks/results/ks_00_control_sample/c97f42f6a601db1c64b593e259e04dec/analysis_registry.csv
 [INFO] Pętla sekwencyjnego nakładania cięć została pomyślnie zakończona!

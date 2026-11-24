@@ -12,26 +12,22 @@ try:
 except NameError:
     script_dir = Path.cwd()
 
-grandparent_dir = script_dir.parent.parent
+grandparent_dir = script_dir.parent.parent.parent
 sys.path.append(str(grandparent_dir))
 
 import ROOT
-
-current_dir = Path(__file__).resolve().parent
-target_dir = current_dir.parent.parent.parent
-sys.path.append(str(target_dir))
-
 import utils.physics_utils as PU
-from utils.general_utils import get_valid_files_fast, log_analysis_run, build_cut_expression, histogram_1D_config_creator
+from utils.general_utils import get_valid_files_fast, log_analysis_run, build_cut_expression, load_2d_config, load_fiducial_filters
 from utils.hist_utils import (
     split_variable_group,
     fill_1d_histograms,
     fill_2d_histograms,
+    fill_2D_histogram_simple,
     draw_and_save_1d_histograms,
     draw_and_save_2d_histograms,
 )
 
-ROOT.EnableImplicitMT(90)
+ROOT.EnableImplicitMT()
 ROOT.gStyle.SetPalette(ROOT.kRainbow)
 
 ROOT.gSystem.Load("/workspace/KLOE/Include/Codes/libLibRec.so")
@@ -58,11 +54,11 @@ channTitle = {str(k): str(v) for k, v in ROOT.KLOE.channTitle}
 channColor = {str(k): int(v) for k, v in ROOT.KLOE.channColor}
 
 # Enrichment for control samples
-channTitle["has000"] = "Event includes K_{S}#rightarrow3#pi^{0}"
-channTitle["!has000"] = "Event does not include K_{S}#rightarrow3#pi^{0}"
+channTitle["hasSemileptonic"] = "Event includes K_{L}#rightarrow#pi^{#pm}l^{#mp}#nu"
+channTitle["!hasSemileptonic"] = "Event does not include K_{L}#rightarrow#pi^{#pm}l^{#mp}#nu"
 
-channColor["has000"] = ROOT.kRed
-channColor["!has000"] = ROOT.kBlue
+channColor["hasSemileptonic"] = ROOT.kRed
+channColor["!hasSemileptonic"] = ROOT.kBlue
 
 print(channName)
 
@@ -128,6 +124,13 @@ df_data = ROOT.RDataFrame("h1", data_files)
 mPi0 = 134.9768 # MeV
 mPiCh = 139.57039 # MeV
 mK0 = 497.611 # MeV
+mPhi = 1019.461 # MeV
+
+c = 29.9792458 # cm / ns
+
+import numpy as np
+
+pK = np.sqrt((mPhi / 2.0)**2 - mK0**2)
 
 df_Preselection = df.Filter("mctruth == 0 || mctruth == 5 || mctruth == -1").Define("ks_kl_semileptonic", "find_ks_kl_semileptonic(mctruth, ntmc, nvtxmc, vtxmc, mother, pidmc)")
 
@@ -150,8 +153,18 @@ df_data = (
     .Define("z_ch", "calc_z_component(Kchrec, ip)")
     .Define("z_ne", "calc_z_component(Knerec, ip)")
     .Define("R_ch", "calc_spherical_radius(Kchrec, ip)")
-    .Define("R_ne", "calc_spherical_radius(KnerecSix, ip)")
+    .Define("R_ne", "calc_spherical_radius(Knerec, ip)")
     .Define("neu_clu_num", "neutralClustersList.size()")
+    .Define("ChTimeLAB", f"sqrt(pow(Kchrec[6] - Bx, 2) + pow(Kchrec[7] - By, 2) + pow(Kchrec[8] - Bz, 2)) / ( {c} * Kchrec[4] / Kchrec[3])")
+    .Define("ChVtx4VectorLAB", "ROOT::RVec<double>{Kchrec[6] - Bx, Kchrec[7] - By, Kchrec[8] - Bz, ChTimeLAB}")
+    .Define("ChVtx4VectorPhiCM", "lorentz_transform(ChVtx4VectorLAB, Broots, Bpx, Bpy, Bpz)")
+    .Define("ChVtxMagPhiCM", "sqrt(pow(ChVtx4VectorPhiCM[0], 2) + pow(ChVtx4VectorPhiCM[1], 2) + pow(ChVtx4VectorPhiCM[2], 2))")
+    .Define("KchrecPhiCM", f"ROOT::RVec<double>{{ {pK} * ChVtx4VectorPhiCM[0] / ChVtxMagPhiCM, {pK} * ChVtx4VectorPhiCM[1] / ChVtxMagPhiCM, {pK} * ChVtx4VectorPhiCM[2] / ChVtxMagPhiCM, {mPhi / 2.} }}")
+    .Define("trk1PhiCM", "lorentz_transform(trk1, Broots, Bpx, Bpy, Bpz)")
+    .Define("trk2PhiCM", "lorentz_transform(trk2, Broots, Bpx, Bpy, Bpz)")
+    .Define("trk1KaonCM", "lorentz_transform(trk1PhiCM, KchrecPhiCM[3], KchrecPhiCM[0], KchrecPhiCM[1], KchrecPhiCM[2])")
+    .Define("trk2KaonCM", "lorentz_transform(trk2PhiCM, KchrecPhiCM[3], KchrecPhiCM[0], KchrecPhiCM[1], KchrecPhiCM[2])")
+    .Define("angleBetweenTracksKaonCM", "acos(std::clamp(cosine_between_vectors(trk1KaonCM, trk2KaonCM), -1.0, 1.0)) * 180. / M_PI")
     ######################### Variables for Omega-pi0 geometrical cut ############################
     .Define("bhabha_IP", "ROOT::RVec<double>{Bx, By, Bz}")
     .Define("bhabha_IP_changed", "ROOT::RVec<double>{Bx, By, KchrecClosest[8]}")
@@ -208,8 +221,18 @@ df = (
     .Define("z_ch", "calc_z_component(Kchrec, ip)")
     .Define("z_ne", "calc_z_component(Knerec, ip)")
     .Define("R_ch", "calc_spherical_radius(Kchrec, ip)")
-    .Define("R_ne", "calc_spherical_radius(KnerecSix, ip)")
+    .Define("R_ne", "calc_spherical_radius(Knerec, ip)")
     .Define("neu_clu_num", "neutralClustersList.size()")
+    .Define("ChTimeLAB", f"sqrt(pow(Kchrec[6] - Bx, 2) + pow(Kchrec[7] - By, 2) + pow(Kchrec[8] - Bz, 2)) / ( {c} * Kchrec[4] / Kchrec[3])")
+    .Define("ChVtx4VectorLAB", "ROOT::RVec<double>{Kchrec[6] - Bx, Kchrec[7] - By, Kchrec[8] - Bz, ChTimeLAB}")
+    .Define("ChVtx4VectorPhiCM", "lorentz_transform(ChVtx4VectorLAB, Broots, Bpx, Bpy, Bpz)")
+    .Define("ChVtxMagPhiCM", "sqrt(pow(ChVtx4VectorPhiCM[0], 2) + pow(ChVtx4VectorPhiCM[1], 2) + pow(ChVtx4VectorPhiCM[2], 2))")
+    .Define("KchrecPhiCM", f"ROOT::RVec<double>{{ {pK} * ChVtx4VectorPhiCM[0] / ChVtxMagPhiCM, {pK} * ChVtx4VectorPhiCM[1] / ChVtxMagPhiCM, {pK} * ChVtx4VectorPhiCM[2] / ChVtxMagPhiCM, {mPhi / 2.} }}")
+    .Define("trk1PhiCM", "lorentz_transform(trk1, Broots, Bpx, Bpy, Bpz)")
+    .Define("trk2PhiCM", "lorentz_transform(trk2, Broots, Bpx, Bpy, Bpz)")
+    .Define("trk1KaonCM", "lorentz_transform(trk1PhiCM, KchrecPhiCM[3], KchrecPhiCM[0], KchrecPhiCM[1], KchrecPhiCM[2])")
+    .Define("trk2KaonCM", "lorentz_transform(trk2PhiCM, KchrecPhiCM[3], KchrecPhiCM[0], KchrecPhiCM[1], KchrecPhiCM[2])")
+    .Define("angleBetweenTracksKaonCM", "acos(std::clamp(cosine_between_vectors(trk1KaonCM, trk2KaonCM), -1.0, 1.0)) * 180. / M_PI")
     ######################### Variables for Omega-pi0 geometrical cut ############################
     .Define("bhabha_IP", "ROOT::RVec<double>{Bx, By, Bz}")
     .Define("bhabha_IP_changed", "ROOT::RVec<double>{Bx, By, KchrecClosest[8]}")
@@ -258,7 +281,7 @@ df_Background = df.Filter(
 
 base_path = "/workspace/root_notebooks/results"
 cache_path = "/workspace/analysis_snapshot"
-analysis_dir = "ks_pm_control_sample"
+analysis_dir = "ks_00_control_sample"
 
 current_date = time.strftime("%Y-%m-%d")
 
@@ -285,6 +308,13 @@ with open(f"{current_result_dir}/analysis_config.json", "w") as f:
 hist_config_file_path = f"{base_path}/{analysis_dir}/config/histograms_config_1D.yaml"
 with open(hist_config_file_path, "r") as f:
     hist_config = yaml.safe_load(f)
+hist_config_2D_file_path = f"{base_path}/{analysis_dir}/config/histograms_config_2D.yaml"
+with open(hist_config_2D_file_path, "r") as f:
+    hist_config_2D = yaml.safe_load(f)
+variables_2D, modes_2D, TRUTH_ONLY_VARS_2D, TRUTH_MCTRUTH_ID_2D = load_2d_config(
+    hist_config_2D, hist_config
+)
+filters_1D, filters_2D = load_fiducial_filters(hist_config, hist_config_2D)
 ######################################################################################
 
 ############ LOAD VARIABLES RESOLUTIONS PER CUT HASH #################################
@@ -323,7 +353,6 @@ try:
       predefined_resolution[var] = hist_config["histograms_1d"][var].get("resolution", False)
 except Exception as e:
   print(f"Error occurred: {e}")
-
 
 import math
 
@@ -383,25 +412,28 @@ def prepare_hist_model(cut_hash: list, vars: list, vars_titles: list, unit: list
 
   return hist_model
 
-tag_cut_list = ["neu_clu_num >= 6", 
-                "bestErrorSixGamma < 2000.0", 
-                "abs(Knerec_5 + 153.0798) < 120"]
+tag_cut_list = ["R_ch > 2.0",
+                "Qmiss < 150.0",
+                "Chi2PMKinFit > 20.0"]
 
-########### Fiducial volume Omega-pi0 #########################
-fiducial_volume_omega = "rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0"
-###############################################################
-########### Fiducial volume tracks back to back ###############
-fiducial_volume_close_tracks = "rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45"
-###############################################################
+# ########### Fiducial volume Omega-pi0 #########################
+# fiducial_volume_omega = "rho_pm_closest < 2.0 && rho_00_closest < 1.5 && abs(z_pm_closest) < 2.0 && abs(z_00_closest) < 2.0"
+# ###############################################################
+# ########### Fiducial volume tracks back to back ###############
+# fiducial_volume_close_tracks = "rho_pm_00 < 2.05 && abs(z_pm_00) < 2.45"
+# ###############################################################
 
-cut_list = ["abs(Kchrec_5) <= 3 * 0.8090",
-            f"({fiducial_volume_omega} && rho_pm_closest > 1.0) || !({fiducial_volume_omega})",
-            f"({fiducial_volume_close_tracks} && (abs(cos_trk1_K) < 0.8 || abs(cos_trk2_K) < 0.8) ) || !({fiducial_volume_close_tracks})"
+cut1 = 8.086
+cut2 = 11.515
+
+cut_list = ["ellipse_cut_func(Knerec_5, KnerecSix_5)",
+            "Chi2NeutralKinFit < 30.0",
+            f"m1_vs_m2_cut(MassPi0NeutralFit1, MassPi0NeutralFit2, {cut1}, {cut2})",
             ]
 
 full_cut_list = tag_cut_list + cut_list
 
-print(full_cut_list)
+# print(full_cut_list)
 
 ############# FIRST CUT LIST FOR 000 TAG ################
 from utils.hist_utils import fill_1D_histogram_simple
@@ -411,11 +443,11 @@ mc_flags = {}
 
 for division in division_list:
   if division == "tag":
-    mc_flags = {"true": "Data", "has000": "has000", "!has000": "!has000"}
-    file_base_name = "tag_kl_000"
+    mc_flags = {"true": "Data", "hasSemileptonic": "hasSemileptonic", "!hasSemileptonic": "!hasSemileptonic"}
+    file_base_name = "tag_kl_Semileptonic"
   else:
     mc_flags = channName
-    file_base_name = "tag_kl_000_chann_div"
+    file_base_name = "tag_kl_Semileptonic_chann_div"
 
   # --- GŁÓWNA PĘTLA BUDUJĄCA CIĘCIA KROK PO KROKU ---
   # Możesz zacząć od indeksu -1 (czyli stan "beż żadnych cięć" / nocuts)
@@ -495,6 +527,7 @@ for division in division_list:
         cut_hash,
         total_cut,
         variables=vars_1D_main,
+        fiducial_filters=filters_1D,
         scaling_factor=scaling_factor,
         compute_mc_sum=True,
         division=division
@@ -514,6 +547,7 @@ for division in division_list:
           cut_hash,
           total_cut,
           variables=vars_1D_truth,
+          fiducial_filters=filters_1D,
           compute_mc_sum=False,
       )
 
@@ -531,6 +565,7 @@ for division in division_list:
         cuts_json_str,
         current_cut_list,
         root_file_name,
+        fiducial_filters=filters_1D,
     )
 
     if vars_1D_truth:
@@ -548,7 +583,79 @@ for division in division_list:
           cuts_json_str,
           current_cut_list,
           root_file_name_truth,
+          fiducial_filters=filters_1D,
       )
+
+    # Histogramy 2D: osobne pliki ROOT, każdy kanał (Data, MC, MC sum) osobno.
+    # Pary z truth_only_vars_2d (klucz "x_y") idą tylko dla kanału truth.
+    truth_keys_2D = set(TRUTH_ONLY_VARS_2D)
+    vars_2D_main = [v for v in variables_2D if "_".join(v) not in truth_keys_2D]
+    vars_2D_truth = [v for v in variables_2D if "_".join(v) in truth_keys_2D]
+
+    def modes_2D_for(pairs):
+      return {
+          mode: {}
+          for v in pairs
+          for mode in modes_2D["_".join(v)]
+      }
+
+    hist_2D = fill_2D_histogram_simple(
+        df,
+        df_data,
+        mc_flags,
+        histo1Dmodel,
+        cut_hash,
+        vars_2D_main,
+        total_cut,
+        scaling_factor=scaling_factor,
+        compute_mc_sum=division != "other_division",
+        modes_2d=modes_2D,
+        fiducial_filters=filters_2D,
+        division=division,
+    )
+    hist_2D, canvas_2D = draw_and_save_2d_histograms(
+        hist_2D,
+        vars_2D_main,
+        modes_2D_for(vars_2D_main),
+        step_result_dir,
+        cut_hash,
+        cuts_json_str,
+        current_cut_list,
+        f"{file_base_name}_2D_variables.root",
+        fiducial_filters=filters_2D,
+    )
+    for canva in canvas_2D:
+      canva.Close()
+
+    if vars_2D_truth and division != "other_division":
+      truth_channels_2D = {
+          TRUTH_MCTRUTH_ID_2D: channName[TRUTH_MCTRUTH_ID_2D]
+      }
+      hist_2D_truth = fill_2D_histogram_simple(
+          df,
+          df_data,
+          truth_channels_2D,
+          histo1Dmodel,
+          cut_hash,
+          vars_2D_truth,
+          total_cut,
+          compute_mc_sum=False,
+          modes_2d=modes_2D,
+          fiducial_filters=filters_2D,
+      )
+      hist_2D_truth, canvas_2D_truth = draw_and_save_2d_histograms(
+          hist_2D_truth,
+          vars_2D_truth,
+          modes_2D_for(vars_2D_truth),
+          step_result_dir,
+          cut_hash,
+          cuts_json_str,
+          current_cut_list,
+          f"{file_base_name}_2D_truth_variables.root",
+          fiducial_filters=filters_2D,
+      )
+      for canva in canvas_2D_truth:
+        canva.Close()
 
     # Sprzątanie obiektów Canvas z pamięci ROOT-a
     for canva in canvas:
